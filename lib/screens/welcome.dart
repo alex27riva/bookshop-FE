@@ -6,6 +6,9 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("My shop"),
+      ),
       body: Center(
         child:
             Text('Welcome!', style: Theme.of(context).textTheme.displayMedium),

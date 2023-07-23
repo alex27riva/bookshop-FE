@@ -12,7 +12,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final _lastNameTextController = TextEditingController();
   final _usernameTextController = TextEditingController();
 
-  double _formProgress = 0;
+  final double _formProgress = 0;
 
   void _showWelcomeScreen() {
     Navigator.of(context).pushNamed('/welcome');
@@ -65,6 +65,8 @@ class _SignUpFormState extends State<SignUpForm> {
             onPressed: _showWelcomeScreen,
             child: const Text('Sign up'),
           ),
+          const Divider(),
+          TextButton(onPressed: (){}, child: const Text("Signup with Oauth"))
         ],
       ),
     );
