@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:oauth_frontend/models/book.dart';
-import 'package:oauth_frontend/screens/bookdetail.dart';
 import 'package:oauth_frontend/screens/cartscreen.dart';
+import 'package:oauth_frontend/widgets/bookItem.dart';
 
 class BookListScreen extends StatelessWidget {
   final List<Book> books = [
-    Book('Book 1', 'Author 1'),
-    Book('Book 2', 'Author 2'),
+    Book('1984', 'George Orwell',
+        'https://unlibrodaconsigliare.it/wp-content/uploads/2020/11/1984-199x300.jpg'),
+    Book('Brave New World', 'Aldous Huxley',
+        'https://i.pinimg.com/originals/d6/72/b6/d672b6e7275ca2ec2490149c57acc6b6.jpg'),
   ];
 
   BookListScreen({super.key});
@@ -33,18 +35,7 @@ class BookListScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: books.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(books[index].title),
-            subtitle: Text(books[index].author),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BookDetailsScreen(book: books[index]),
-                ),
-              );
-            },
-          );
+          return BookItem(book: books[index]);
         },
       ),
     );

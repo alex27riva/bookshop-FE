@@ -13,7 +13,7 @@ class CartScreen extends StatelessWidget {
         title: const Text('Carrello'),
       ),
       body: cartItems.isEmpty
-          ? const Center(child: Text('Il carrello è vuoto.'))
+          ? const Center(child: Text('The cart is empty.'))
           : ListView.builder(
               itemCount: cartItems.length,
               itemBuilder: (context, index) {

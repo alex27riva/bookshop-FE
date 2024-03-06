@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oauth_frontend/models/book.dart';
 import 'package:oauth_frontend/screens/cartscreen.dart';
+import 'package:oauth_frontend/widgets/book_detail_item.dart';
 
 class BookDetailsScreen extends StatefulWidget {
   final Book book;
@@ -39,19 +40,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Title: ${widget.book.title}', style: const TextStyle(fontSize: 20)),
-            const SizedBox(height: 10),
-            Text('Author: ${widget.book.author}',
-                style: const TextStyle(fontSize: 16)),
-            // Altri dettagli del libro possono essere aggiunti qui
-          ],
-        ),
-      ),
+      body: BookDetailItem( book: widget.book,)
     );
   }
 }
