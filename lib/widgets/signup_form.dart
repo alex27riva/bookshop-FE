@@ -66,7 +66,7 @@ class _SignUpFormState extends State<SignUpForm> {
             child: const Text('Sign up'),
           ),
           const Divider(),
-          TextButton(onPressed: (){}, child: const Text("Signup with Oauth"))
+          TextButton(onPressed: () {}, child: const Text("Signup with Oauth"))
         ],
       ),
     );
