@@ -21,6 +21,15 @@ class _SignUpFormState extends State<SignUpForm> {
     Navigator.of(context).pushNamed('/welcome');
   }
 
+  void _showErrorSnackBar(String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+    ),
+  );
+}
+
   Future<void> _makeApiRequest() async {
     final response = await http.post(
       Uri.parse(URLS.signupEndpoint),
@@ -39,6 +48,7 @@ class _SignUpFormState extends State<SignUpForm> {
     } else {
       // Handle errors, show an error message, etc.
       print('Error: ${response.statusCode}');
+      _showErrorSnackBar('An error occurred: ${response.statusCode}');
     }
   }
 

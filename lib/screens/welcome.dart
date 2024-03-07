@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oauth_frontend/widgets/Oauth_signup_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -26,7 +27,8 @@ class WelcomeScreen extends StatelessWidget {
                   child: const Text("SignIn")),
               TextButton(
                   onPressed: () => Navigator.of(context).pushNamed('/welcome'),
-                  child: const Text("Login"))
+                  child: const Text("Login")),
+              const OAuthSignupButton(),
             ],
           ),
         ));
