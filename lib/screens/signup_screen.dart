@@ -7,15 +7,16 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: const Center(
-        child: SizedBox(
+        backgroundColor: Colors.grey[200],
+        body: Center(
+            child: SizedBox(
           width: 400,
           child: Card(
-            child: SignUpForm(),
-          ),
-        ),
-      ),
-    );
+              child: Column(children: [
+            const SignUpForm(),
+            const Divider(),
+            TextButton(onPressed: () {}, child: const Text("Signup with Oauth"))
+          ])),
+        )));
   }
 }
