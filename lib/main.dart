@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oauth_frontend/screens/booklist.dart';
+import 'package:oauth_frontend/screens/redirect.dart';
 import 'package:oauth_frontend/screens/welcome.dart';
 
 void main() {
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const WelcomeScreen(),
         '/browse': (context) => const BookListScreen(),
+        '/redirect': (context) => const RedirectPage(redirectUrl: 'http://localhost:8000/redirect',),
       },
     );
   }

@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:oauth_frontend/constants/oauth_config.dart';
 import 'package:oauth_frontend/models/token_response.dart';
 
 class ApiService {
-  final String _tokenUrl = 'http://localhost:8080/auth/realms/unimi/protocol/openid-connect/token';
+  final String _tokenUrl = OauthConfig.tokenUri;
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   Future<String?> getToken(String code) async {
@@ -23,7 +24,8 @@ class ApiService {
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       final tokenResponse = TokenResponse.fromJson(jsonResponse);
-      await _secureStorage.write(key: 'access_token', value: tokenResponse.accessToken);
+      await _secureStorage.write(
+          key: 'access_token', value: tokenResponse.accessToken);
       return tokenResponse.accessToken;
     } else {
       throw Exception('Failed to get token');

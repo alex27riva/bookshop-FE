@@ -4,8 +4,9 @@ class OauthConfig {
 
   static const String clientId = 'flask-demo';
   static const redirectUriScheme = 'http';
-  static const redirectUriPath = 'localhost:5000/api/callback';
+  static const redirectUriPath = 'localhost:8000/redirect';
   static const authorizationEndpoint =
-      'http://localhost:8080/auth/realms/unimi/protocol/openid-connect/auth';
+      'http://localhost:8080/realms/unimi/protocol/openid-connect/auth';
+  static const tokenUri = 'http://localhost:8080/realms/unimi/protocol/openid-connect/token';
 
 }
