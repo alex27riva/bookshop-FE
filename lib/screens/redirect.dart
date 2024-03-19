@@ -1,48 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html;
 
-class RedirectPage extends StatefulWidget {
-  final String redirectUrl;
+class KeycloakRedirectPage extends StatefulWidget {
+  final Function(String) onTokenReceived;
+  String _uri = "";
+  String _code = "";
 
-  const RedirectPage({super.key, required this.redirectUrl});
+  KeycloakRedirectPage({required this.onTokenReceived});
 
   @override
-  _RedirectPageState createState() => _RedirectPageState();
+  _KeycloakRedirectPageState createState() => _KeycloakRedirectPageState();
 }
 
-class _RedirectPageState extends State<RedirectPage> {
+class _KeycloakRedirectPageState extends State<KeycloakRedirectPage> {
   @override
   void initState() {
     super.initState();
     _handleRedirect();
   }
 
-  Future<void> _handleRedirect() async {
-    // Extract OAuth2 authorization code or access token from the redirect URL
-    // and send it to the Flask backend for further processing
-    // Example: send token to backend using HTTP POST request
+  void _handleRedirect() {
+    // Extract token from the redirect URI
+    Uri uri = Uri.parse(html.window.location.href);
+    widget._uri = uri.toString();
+    String? code = uri.queryParameters['code'];
+    widget._code = code.toString();
 
-    // Assuming you're using package:url_launcher to handle redirection
-    final url = Uri.parse(widget.redirectUrl);
-    if (url.queryParameters.containsKey('code')) {
-      // Extract code from URL
-      String code = url.queryParameters['code']!;
-      // Send the code to your backend
-      // Example: await http.post('YOUR_BACKEND_URL', body: {'code': code});
-    }
-
-    // Close the redirection page
-    Navigator.of(context).pop();
+    // Notify the parent widget with the received token
+    widget.onTokenReceived(code!);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Redirect Page'),
-      ),
-      body: const Center(
-        child: CircularProgressIndicator(), // Show a loading indicator
+    return Center(
+      child: Column(
+        children: [
+          Text(widget._uri),
+          Text(
+            widget._code,
+            style: const TextStyle(color: Colors.red),
+          )
+        ],
       ),
     );
   }

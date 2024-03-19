@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const WelcomeScreen(),
         '/browse': (context) => const BookListScreen(),
-        '/redirect': (context) => const RedirectPage(redirectUrl: 'http://localhost:8000/redirect',),
+       '/redirect': (context) => const WelcomeScreen(),
       },
     );
   }
