@@ -7,6 +7,7 @@ class OauthConfig {
   static const redirectUriPath = 'localhost:8000/redirect';
   static const authorizationEndpoint =
       'http://localhost:8080/realms/unimi/protocol/openid-connect/auth';
-  static const tokenUri = 'http://localhost:8080/realms/unimi/protocol/openid-connect/token';
-
+  static const tokenUri =
+      'http://localhost:8080/realms/unimi/protocol/openid-connect/token';
+  static const callbackUri = 'http://localhost:5000/auth/callback';
 }
