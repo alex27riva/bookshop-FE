@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oauth_frontend/screens/booklist.dart';
-import 'package:oauth_frontend/screens/signup_screen.dart';
+import 'package:oauth_frontend/screens/login.dart';
 import 'package:oauth_frontend/screens/welcome.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const WelcomeScreen(),
-        '/signup': (context) => const SignUpScreen(),
+        '/login': (context) => const LoginScreen(),
         '/welcome': (context) => const BookListScreen(),
       },
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oauth_frontend/widgets/Oauth_signup_button.dart';
+import 'package:oauth_frontend/widgets/oauth_signup_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
