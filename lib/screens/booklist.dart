@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:oauth_frontend/constants/urls.dart';
 import 'package:oauth_frontend/models/book.dart';
 import 'package:oauth_frontend/screens/cartscreen.dart';
 import 'package:oauth_frontend/widgets/bookItem.dart';
@@ -24,7 +25,7 @@ class _BookListScreenState extends State<BookListScreen> {
 
   Future<List<Book>> fetchData() async {
     final response =
-        await http.get(Uri.parse('http://localhost:5000/api/books'));
+        await http.get(Uri.parse(URLS.booksEndpoint));
 
     if (response.statusCode == 200) {
       // Parse the JSON response

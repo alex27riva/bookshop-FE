@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:oauth_frontend/screens/booklist.dart';
-import 'package:oauth_frontend/screens/login.dart';
 import 'package:oauth_frontend/screens/welcome.dart';
 
 void main() {
@@ -17,8 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const WelcomeScreen(),
-        '/login': (context) => const LoginScreen(),
-        '/welcome': (context) => const BookListScreen(),
+        '/browse': (context) => const BookListScreen(),
       },
     );
   }
