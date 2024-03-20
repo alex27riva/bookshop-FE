@@ -17,14 +17,25 @@ class KeycloakRedirectPage extends StatefulWidget {
   KeycloakRedirectPage({super.key, required this.onTokenReceived});
 
   @override
-  _KeycloakRedirectPageState createState() => _KeycloakRedirectPageState();
+  KeycloakRedirectPageState createState() => KeycloakRedirectPageState();
 }
 
-class _KeycloakRedirectPageState extends State<KeycloakRedirectPage> {
+class KeycloakRedirectPageState extends State<KeycloakRedirectPage> {
   @override
   void initState() {
     super.initState();
     _handleRedirect();
+  }
+
+  void _showSnackbarError(BuildContext context, String error) async {
+     if (!context.mounted) return;
+    // Display error in a Snackbar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Error: $error'),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
 
   Future<void> _handleRedirect() async {
@@ -37,11 +48,11 @@ class _KeycloakRedirectPageState extends State<KeycloakRedirectPage> {
     // Notify the parent widget with the received token
     widget.onTokenReceived(code!);
 
-    // Send the token to the Flask backend
+    // Send the auth_code to the Flask backend
     try {
       await sendCodeToBackend(code);
     } catch (e) {
-      print('Error sending token to backend: $e');
+      print('Error sending code to backend: $e');
       // Handle error
     }
   }
@@ -54,9 +65,11 @@ class _KeycloakRedirectPageState extends State<KeycloakRedirectPage> {
     final response = await http.post(url, headers: headers, body: body);
 
     if (response.statusCode == 200) {
-      print('Token sent successfully to backend');
+      print('Code sent successfully to backend');
     } else {
-      print('Failed to send token to backend: ${response.statusCode}');
+      print('Failed to send code to backend: ${response.statusCode}');
+      // ignore: use_build_context_synchronously
+      _showSnackbarError(context, response.body);
       // Handle failure
     }
   }
