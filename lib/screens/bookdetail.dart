@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:oauth_frontend/models/book.dart';
-import 'package:oauth_frontend/screens/cartscreen.dart';
-import 'package:oauth_frontend/widgets/book_detail_item.dart';
+import 'package:bookshop_fe/models/book.dart';
+import 'package:bookshop_fe/screens/cartscreen.dart';
 
 class BookDetailsScreen extends StatefulWidget {
   final Book book;
@@ -40,7 +39,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
           ),
         ],
       ),
-      body: BookDetailItem( book: widget.book,)
+      body: Container(), //BookDetailItem( book: widget.book,)
     );
   }
 }

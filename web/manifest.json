@@ -1,11 +1,11 @@
 {
-    "name": "oauth_frontend",
-    "short_name": "oauth_frontend",
+    "name": "bookshop_fe",
+    "short_name": "bookshop_fe",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Bookshop frontend in Flutter",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

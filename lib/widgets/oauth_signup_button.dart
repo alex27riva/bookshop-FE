@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
-import 'package:oauth_frontend/constants/oauth_config.dart';
+import 'package:bookshop_fe/constants/oauth_config.dart';
 
 class OAuthSignupButton extends StatelessWidget {
   final String _clientId = OauthConfig.clientId;
   final String _redirectUriScheme = OauthConfig.redirectUriScheme;
   final String _redirectUriPath = OauthConfig.redirectUriPath;
   final String _authorizationEndpoint = OauthConfig.authorizationEndpoint;
-  
+
   const OAuthSignupButton({super.key});
 
   Future<void> _login(BuildContext context) async {
     String authorizationUrl =
         '$_authorizationEndpoint?response_type=code&client_id=$_clientId&redirect_uri=$_redirectUriScheme://$_redirectUriPath';
-    
+
     try {
       // Open Keycloak authentication URL in a browser
-      final result = await FlutterWebAuth.authenticate(url: authorizationUrl, callbackUrlScheme: _redirectUriScheme);
+      final result = await FlutterWebAuth.authenticate(
+          url: authorizationUrl, callbackUrlScheme: _redirectUriScheme);
       // ignore: avoid_print
       print(result); // Handle the authentication result
     } catch (e) {

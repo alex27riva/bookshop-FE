@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:oauth_frontend/constants/urls.dart';
+import 'package:bookshop_fe/constants/urls.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -22,13 +22,13 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   void _showErrorSnackBar(String message) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(message),
-      backgroundColor: Colors.red,
-    ),
-  );
-}
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
 
   Future<void> _makeApiRequest() async {
     final response = await http.post(

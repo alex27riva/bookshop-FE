@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oauth_frontend/models/book.dart';
+import 'package:bookshop_fe/models/book.dart';
 
 class CartScreen extends StatelessWidget {
   static List<Book> cartItems = [];

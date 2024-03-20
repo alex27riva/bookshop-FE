@@ -1,6 +1,6 @@
-# oauth_frontend
+# bookshop_fe
 
-A new Flutter project.
+Online bookshop frontend written in Flutter
 
 ## Run
 

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:oauth_frontend/constants/urls.dart';
-import 'package:oauth_frontend/models/book.dart';
-import 'package:oauth_frontend/screens/cartscreen.dart';
-import 'package:oauth_frontend/widgets/bookItem.dart';
+import 'package:bookshop_fe/constants/urls.dart';
+import 'package:bookshop_fe/models/book.dart';
+import 'package:bookshop_fe/screens/cartscreen.dart';
+import 'package:bookshop_fe/widgets/bookItem.dart';
 import 'package:http/http.dart' as http;
 
 class BookListScreen extends StatefulWidget {
@@ -24,20 +24,19 @@ class _BookListScreenState extends State<BookListScreen> {
   }
 
   Future<List<Book>> fetchData() async {
-    final response =
-        await http.get(Uri.parse(URLS.booksEndpoint));
+    final response = await http.get(Uri.parse(URLS.booksEndpoint));
 
     if (response.statusCode == 200) {
       // Parse the JSON response
       final List<dynamic> data = jsonDecode(response.body);
 
-    return data.map((item) {
-      return Book(
-        item['title'],
-        item['author'],
-        item['cover_image_url'],
-      );
-    }).toList();
+      return data.map((item) {
+        return Book(
+          item['title'],
+          item['author'],
+          item['cover_image_url'],
+        );
+      }).toList();
     } else {
       // Handle errors
       print('Failed to load data: ${response.statusCode}');
@@ -78,9 +77,10 @@ class _BookListScreenState extends State<BookListScreen> {
           } else {
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5, // Number of columns
-              crossAxisSpacing: 10.0,
-              mainAxisSpacing: 10.0,),
+                crossAxisCount: 5, // Number of columns
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0,
+              ),
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return BookItem(book: snapshot.data![index]);

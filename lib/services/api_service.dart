@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:oauth_frontend/constants/oauth_config.dart';
-import 'package:oauth_frontend/models/token_response.dart';
+import 'package:bookshop_fe/constants/oauth_config.dart';
+import 'package:bookshop_fe/models/token_response.dart';
 
 class ApiService {
   final String _tokenUrl = OauthConfig.tokenUri;

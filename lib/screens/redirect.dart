@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
-import 'package:oauth_frontend/constants/oauth_config.dart';
+import 'package:bookshop_fe/constants/oauth_config.dart';
 
 class KeycloakRedirectPage extends StatefulWidget {
   final Function(String) onTokenReceived;
@@ -37,14 +37,14 @@ class _KeycloakRedirectPageState extends State<KeycloakRedirectPage> {
     // Notify the parent widget with the received token
     widget.onTokenReceived(code!);
 
-     // Send the token to the Flask backend
+    // Send the token to the Flask backend
     try {
       await sendCodeToBackend(code);
     } catch (e) {
       print('Error sending token to backend: $e');
       // Handle error
     }
-    }
+  }
 
   Future<void> sendCodeToBackend(String code) async {
     final url = Uri.parse(OauthConfig.callbackUri);
