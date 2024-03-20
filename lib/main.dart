@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:oauth_frontend/screens/booklist.dart';
-import 'package:oauth_frontend/screens/redirect.dart';
 import 'package:oauth_frontend/screens/welcome.dart';
 
 void main() {

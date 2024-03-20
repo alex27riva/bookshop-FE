@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:oauth_frontend/models/book.dart';
-import 'package:oauth_frontend/screens/bookdetail.dart';
 
 class BookItem extends StatelessWidget {
   final Book book;
@@ -9,17 +8,55 @@ class BookItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(book.title),
-      subtitle: Text(book.author),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BookDetailsScreen(book: book),
+    return SizedBox(
+      height: 300,
+      width: 120,
+      child: Card(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image.network(
+                  book.coverImageUrl,
+                  width: 100,
+                  height: 150,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  (loadingProgress.expectedTotalBytes ?? 1)
+                              : null,
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text('Title: ${book.title}',
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 5),
+              Text('Author: ${book.author}',
+                  style: const TextStyle(fontSize: 16)),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

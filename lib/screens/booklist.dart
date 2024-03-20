@@ -76,7 +76,11 @@ class _BookListScreenState extends State<BookListScreen> {
               child: Text('Error: ${snapshot.error}'),
             );
           } else {
-            return ListView.builder(
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5, // Number of columns
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0,),
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return BookItem(book: snapshot.data![index]);
