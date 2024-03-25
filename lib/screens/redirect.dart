@@ -2,7 +2,9 @@
 
 import 'dart:convert';
 
+import 'package:bookshop_fe/models/token_response.dart';
 import 'package:bookshop_fe/utils/environment.dart';
+import 'package:bookshop_fe/utils/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 // ignore: avoid_web_libraries_in_flutter
@@ -27,7 +29,7 @@ class KeycloakRedirectPageState extends State<KeycloakRedirectPage> {
   }
 
   void _showSnackbarError(BuildContext context, String error) async {
-     if (!context.mounted) return;
+    if (!context.mounted) return;
     // Display error in a Snackbar
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -65,6 +67,13 @@ class KeycloakRedirectPageState extends State<KeycloakRedirectPage> {
 
     if (response.statusCode == 200) {
       print('Code sent successfully to backend');
+      final jsonResponse = jsonDecode(response.body);
+      final tokenResponse = TokenResponse.fromJson(jsonResponse);
+      // Store token
+      SecureStorage.storeToken(tokenResponse.accessToken);
+
+      //TODO: Remove print
+      print(tokenResponse.accessToken);
     } else {
       print('Failed to send code to backend: ${response.statusCode}');
       // ignore: use_build_context_synchronously
