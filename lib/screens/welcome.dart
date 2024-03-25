@@ -29,7 +29,7 @@ class WelcomeScreen extends StatelessWidget {
               TextButton(
                   onPressed: () => Navigator.of(context).pushNamed('/browse'),
                   child: const Text("Browse")),
-              const OAuthSignupButton(),
+              OAuthSignupButton(),
               KeycloakRedirectPage(onTokenReceived: (String token) {
                 print('Received token: $token');
               })

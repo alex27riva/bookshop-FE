@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:bookshop_fe/constants/oauth_config.dart';
 import 'package:bookshop_fe/models/token_response.dart';
 
 class ApiService {
-  final String _tokenUrl = OauthConfig.tokenUri;
+  //final String _tokenUrl = OauthConfig.tokenUri;
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   Future<String?> getToken(String code) async {

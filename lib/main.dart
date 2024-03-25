@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:bookshop_fe/screens/booklist.dart';
 import 'package:bookshop_fe/screens/welcome.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 

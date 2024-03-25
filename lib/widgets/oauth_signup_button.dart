@@ -1,14 +1,14 @@
+import 'package:bookshop_fe/utils/environment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
-import 'package:bookshop_fe/constants/oauth_config.dart';
 
 class OAuthSignupButton extends StatelessWidget {
-  final String _clientId = OauthConfig.clientId;
-  final String _redirectUriScheme = OauthConfig.redirectUriScheme;
-  final String _redirectUriPath = OauthConfig.redirectUriPath;
-  final String _authorizationEndpoint = OauthConfig.authorizationEndpoint;
+  final String _clientId = Environment.clientID;
+  final String _redirectUriScheme = Environment.redirectUriScheme;
+  final String _redirectUriPath = Environment.redirectUriPath;
+  final String _authorizationEndpoint = Environment.authorizationEndpoint;
 
-  const OAuthSignupButton({super.key});
+  OAuthSignupButton({super.key});
 
   Future<void> _login(BuildContext context) async {
     String authorizationUrl =
