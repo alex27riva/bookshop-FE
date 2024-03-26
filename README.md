@@ -7,11 +7,10 @@ Online bookshop frontend written in Flutter
 Create a `.env` file in the `assets/` folder with the following content:
 
 ```ini
-CLIENT_ID=flask-demo
-REDIRECT_URI_SCHEME=http
-REDIRECT_URI_PATH=localhost:8000/redirect
-AUTH_ENDPOINT_URI=http://localhost:8080/realms/unimi/protocol/openid-connect/auth
-BACKEND_CALLBACK_URI=http://localhost:5000/auth/callback
+CLIENT_ID=bookshop
+KEYCLOAK_URI_SCHEME=http
+KEYCLOAK_REALM=unimi
+KEYCLOAK_HOST=localhost:8080
 ```
 
 ## Run

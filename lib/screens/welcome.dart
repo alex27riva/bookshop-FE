@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:bookshop_fe/screens/redirect.dart';
 import 'package:bookshop_fe/widgets/oauth_signup_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -29,10 +28,7 @@ class WelcomeScreen extends StatelessWidget {
               TextButton(
                   onPressed: () => Navigator.of(context).pushNamed('/browse'),
                   child: const Text("Browse")),
-              OAuthSignupButton(),
-              KeycloakRedirectPage(onTokenReceived: (String token) {
-                print('Received token: $token');
-              })
+              const OAuthSignupButton(),
             ],
           ),
         ));

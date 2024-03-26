@@ -1,35 +1,13 @@
-import 'package:bookshop_fe/utils/environment.dart';
+import 'package:bookshop_fe/services/pkce_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 class OAuthSignupButton extends StatelessWidget {
-  final String _clientId = Environment.clientID;
-  final String _redirectUriScheme = Environment.redirectUriScheme;
-  final String _redirectUriPath = Environment.redirectUriPath;
-  final String _authorizationEndpoint = Environment.authorizationEndpoint;
-
-  OAuthSignupButton({super.key});
-
-  Future<void> _login(BuildContext context) async {
-    String authorizationUrl =
-        '$_authorizationEndpoint?response_type=code&client_id=$_clientId&redirect_uri=$_redirectUriScheme://$_redirectUriPath';
-
-    try {
-      // Open Keycloak authentication URL in a browser
-      final result = await FlutterWebAuth.authenticate(
-          url: authorizationUrl, callbackUrlScheme: _redirectUriScheme);
-      // ignore: avoid_print
-      print(result); // Handle the authentication result
-    } catch (e) {
-      print('Error: $e');
-      // Handle errors
-    }
-  }
+  const OAuthSignupButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => _login(context),
+      onPressed: () => PKCEAuth.authenticateAndSaveToken(),
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(16.0),
         backgroundColor: Colors.blue,
