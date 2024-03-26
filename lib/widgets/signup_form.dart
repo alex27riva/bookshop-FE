@@ -32,7 +32,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   Future<void> _makeApiRequest() async {
     final response = await http.post(
-      Uri.parse(URLS.signupEndpoint),
+      Uri.parse(Urls.signupEndpoint),
       body: {
         'firstName': _firstNameTextController.text,
         'lastName': _lastNameTextController.text,

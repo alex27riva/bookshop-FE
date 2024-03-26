@@ -24,7 +24,7 @@ class _BookListScreenState extends State<BookListScreen> {
   }
 
   Future<List<Book>> fetchData() async {
-    final response = await http.get(Uri.parse(URLS.booksEndpoint));
+    final response = await http.get(Uri.parse(Urls.booksEndpoint));
 
     if (response.statusCode == 200) {
       // Parse the JSON response
