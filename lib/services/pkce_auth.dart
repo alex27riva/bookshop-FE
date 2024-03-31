@@ -62,6 +62,6 @@ class PKCEAuth {
   static Future<void> authenticateAndSaveToken() async {
     Credential result = await PKCEAuth.authenticateWeb();
     var tokenResponse = await result.getTokenResponse();
-    SecureStorage.storeToken(tokenResponse.accessToken);
+    SecureStorage.setAccessToken(tokenResponse.accessToken);
   }
 }
