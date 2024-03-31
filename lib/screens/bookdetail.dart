@@ -8,10 +8,10 @@ class BookDetailsScreen extends StatefulWidget {
   const BookDetailsScreen({super.key, required this.book});
 
   @override
-  _BookDetailsScreenState createState() => _BookDetailsScreenState();
+  BookDetailsScreenState createState() => BookDetailsScreenState();
 }
 
-class _BookDetailsScreenState extends State<BookDetailsScreen> {
+class BookDetailsScreenState extends State<BookDetailsScreen> {
   bool isInCart = false;
 
   @override

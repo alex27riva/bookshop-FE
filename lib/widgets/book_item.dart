@@ -9,7 +9,7 @@ class BookItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 450,
       width: 120,
       child: Card(
         elevation: 10,
@@ -26,8 +26,8 @@ class BookItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   book.coverImageUrl,
-                  width: 100,
-                  height: 150,
+                  width: 80,
+                  height: 130,
                   fit: BoxFit.cover,
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent? loadingProgress) {
@@ -49,10 +49,10 @@ class BookItem extends StatelessWidget {
               const SizedBox(height: 10),
               Text('Title: ${book.title}',
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold)),
+                      fontSize: 18.0, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
               Text('Author: ${book.author}',
-                  style: const TextStyle(fontSize: 16)),
+                  style: const TextStyle(fontSize: 14.0)),
             ],
           ),
         ),

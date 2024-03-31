@@ -95,7 +95,7 @@ class _BookListScreenState extends State<BookListScreen> {
           } else {
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5, // Number of columns
+                crossAxisCount: 4, // number of columns,
                 crossAxisSpacing: 10.0,
                 mainAxisSpacing: 10.0,
               ),
