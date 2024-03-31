@@ -16,8 +16,8 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String user = context.watch<Login>().getUsername;
-    bool loggedIn = context.watch<Login>().isLoggedIn;
+    String user = context.watch<Login>().username;
+    bool loggedIn = context.watch<Login>().loggedIn;
     return AppBar(
       title: Text(
           loggedIn ? "Welcome $user to my bookshop" : "Welcome, please log-in"),

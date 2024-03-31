@@ -1,29 +1,21 @@
+import 'package:bookshop_fe/models/user.dart';
 import 'package:flutter/material.dart';
 
 class Login with ChangeNotifier {
-  // ignore: prefer_final_fields
-  bool _loggedIn = false;
-  String _username = "Guest";
-  String _accessToken = "";
+  User emptyUser = User(jwtToken: "");
+  User currentUser = User(jwtToken: "");
 
-  bool get isLoggedIn => _loggedIn | (_accessToken != "");
-  String get getUsername => _username;
-
-  void setUsername(user) {
-    _username = user;
-    notifyListeners();
-  }
+  bool get loggedIn => currentUser.loggedIn;
+  String get username => currentUser.name;
+  String get accessToken => currentUser.jwtToken;
 
   void login(token) {
-    _loggedIn = true;
-    _accessToken = "";
+    currentUser = User(jwtToken: token);
     notifyListeners();
   }
 
   void logout() {
-    _loggedIn = false;
-    _username = "Guest";
-    _accessToken = "";
+    currentUser = emptyUser;
     notifyListeners();
   }
 }

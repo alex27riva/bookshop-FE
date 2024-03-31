@@ -36,6 +36,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final login = Provider.of<Login>(context);
+
     return Scaffold(
         appBar: AppBar(
           title: CustomAppBar(
@@ -61,6 +63,7 @@ class _HomePageState extends State<HomePage> {
               TextButton(
                   onPressed: () => Navigator.of(context).pushNamed('/browse'),
                   child: const Text("Browse")),
+                  Text(_accessToken)
             ],
           ),
         ));
