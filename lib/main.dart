@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bookshop_fe/screens/booklist.dart';
-import 'package:bookshop_fe/screens/welcome.dart';
+import 'package:bookshop_fe/screens/home_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Bookshop',
       routes: {
-        '/': (context) => const WelcomeScreen(),
+        '/': (context) => const HomePage(),
         '/browse': (context) => const BookListScreen(),
-        '/redirect': (context) => const WelcomeScreen(),
+        //'/redirect': (context) => const WelcomeScreen(),
       },
     );
   }
