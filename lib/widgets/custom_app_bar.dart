@@ -1,20 +1,15 @@
 import 'package:bookshop_fe/providers/login.dart';
-import 'package:bookshop_fe/services/pkce_auth.dart';
-import 'package:bookshop_fe/services/secure_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:openid_client/openid_client.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
-  final String? username;
   final VoidCallback? onLoginPressed;
   final VoidCallback? onLogoutPressed;
 
   const CustomAppBar({
     Key? key,
     required this.title,
-    this.username,
     this.onLoginPressed,
     this.onLogoutPressed,
   }) : super(key: key);
@@ -29,15 +24,7 @@ class CustomAppBar extends StatelessWidget {
       actions: [
         if (!loggedIn)
           TextButton(
-            onPressed: () async {
-              final login = Provider.of<Login>(context, listen: false);
-              Credential result = await PKCEAuth.authenticateWeb();
-              var tokenResponse = await result.getTokenResponse();
-              if (tokenResponse.accessToken != null) {
-                login.setAccessToken(tokenResponse.accessToken);
-                SecureStorage.setAccessToken(tokenResponse.accessToken);
-              }
-            },
+            onPressed: onLoginPressed,
             child: const Text("Login"),
           ),
         if (loggedIn)

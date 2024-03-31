@@ -1,6 +1,10 @@
+import 'package:bookshop_fe/providers/login.dart';
+import 'package:bookshop_fe/services/pkce_auth.dart';
+import 'package:bookshop_fe/services/secure_storage.dart';
 import 'package:bookshop_fe/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:bookshop_fe/widgets/oauth_signup_button.dart';
+import 'package:openid_client/openid_client.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,12 +14,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _username = "";
+  String _accessToken = "";
 
-  void _handleLogin(String username) {
-    setState(() {
-      _username = username;
-    });
+  Future<void> _handleLogin() async {
+    final login = Provider.of<Login>(context, listen: false);
+
+    Credential result = await PKCEAuth.authenticateWeb();
+    var tokenResponse = await result.getTokenResponse();
+    if (tokenResponse.accessToken != null) {
+      _accessToken = tokenResponse.accessToken!;
+      login.login(_accessToken);
+      SecureStorage.setAccessToken(tokenResponse.accessToken);
+    }
+  }
+
+  _handleLogout() {
+    final login = Provider.of<Login>(context, listen: false);
+    _accessToken = "";
+    login.logout();
   }
 
   @override
@@ -23,11 +39,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: CustomAppBar(
-            title: 'MyApp',
-            username: _username,
-            onLoginPressed: () => _handleLogin('Guest'),
-            onLogoutPressed: () => setState(() => _username = ''),
-          ),
+              title: 'MyApp',
+              onLoginPressed: () => _handleLogin(),
+              onLogoutPressed: () => _handleLogout()),
         ),
         body: Center(
           child: Column(
@@ -47,7 +61,6 @@ class _HomePageState extends State<HomePage> {
               TextButton(
                   onPressed: () => Navigator.of(context).pushNamed('/browse'),
                   child: const Text("Browse")),
-              //const OAuthSignupButton(),
             ],
           ),
         ));

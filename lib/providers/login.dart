@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:openid_client/openid_client.dart';
 
 class Login with ChangeNotifier {
   // ignore: prefer_final_fields
@@ -15,9 +14,16 @@ class Login with ChangeNotifier {
     notifyListeners();
   }
 
-  void setAccessToken(token) {
+  void login(token) {
     _loggedIn = true;
-    _accessToken = token;
+    _accessToken = "";
+    notifyListeners();
+  }
+
+  void logout() {
+    _loggedIn = false;
+    _username = "Guest";
+    _accessToken = "";
     notifyListeners();
   }
 }
