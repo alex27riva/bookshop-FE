@@ -36,6 +36,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   openid_client: ^0.4.8
   provider: ^6.1.2
+  jwt_decoder: ^2.0.1
 
 dev_dependencies:
   flutter_test:

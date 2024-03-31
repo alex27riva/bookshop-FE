@@ -2,6 +2,7 @@ import 'package:bookshop_fe/providers/login.dart';
 import 'package:bookshop_fe/services/pkce_auth.dart';
 import 'package:bookshop_fe/services/secure_storage.dart';
 import 'package:bookshop_fe/widgets/custom_app_bar.dart';
+import 'package:bookshop_fe/widgets/token_info.dart';
 import 'package:flutter/material.dart';
 import 'package:openid_client/openid_client.dart';
 import 'package:provider/provider.dart';
@@ -36,8 +37,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final login = Provider.of<Login>(context);
-
+    // keep this
+    Provider.of<Login>(context);
     return Scaffold(
         appBar: AppBar(
           title: CustomAppBar(
@@ -63,7 +64,11 @@ class _HomePageState extends State<HomePage> {
               TextButton(
                   onPressed: () => Navigator.of(context).pushNamed('/browse'),
                   child: const Text("Browse")),
-                  Text(_accessToken)
+              _accessToken != ""
+                  ? TokenInfo(
+                      token: _accessToken,
+                    )
+                  : Container(),
             ],
           ),
         ));
