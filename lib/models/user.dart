@@ -1,34 +1,36 @@
+import 'package:bookshop_fe/models/jwt_helper.dart';
+
 class User {
+  final String accessToken;
+  bool loggedIn;
+  final String id;
+  final String issuer;
+  final String audience;
+  final String fullname;
+  final String username;
   final String name;
-  final String? email;
-  final String jwtToken;
-  final bool loggedIn;
+  final String surname;
+  final String email;
 
-  User({
-    this.name = "User",
-    this.email,
-    required this.jwtToken,
-  }) : loggedIn = jwtToken.isNotEmpty;
+  User.empty()
+      : accessToken = '',
+        loggedIn = false,
+        id = '',
+        issuer = '',
+        audience = '',
+        fullname = '',
+        username = '',
+        name = '',
+        surname = '',
+        email = '';
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    final name = json['name'] != null ? _extractNameFromJwt(json['jwtToken']) : "";
-    final email = json['email'] != null ? _extractEmailFromJwt(json['jwtToken']) : "";
-
-    return User(
-      name: name,
-      email: email,
-      jwtToken: json['jwtToken'],
-    );
-  }
-
-  // Moved these methods outside the class definition
-  static String _extractNameFromJwt(String token) {
-    // Extract name from JWT claims (logic specific to your JWT library)
-    return "Name from JWT";
-  }
-
-  static String _extractEmailFromJwt(String token) {
-    // Extract email from JWT claims (logic specific to your JWT library)
-    return "Email from JWT";
-  }
+  User.fromJwtToken({required this.accessToken, this.loggedIn = true})
+      : id = JwtHelper(accessToken).subject,
+        issuer = JwtHelper(accessToken).issuer,
+        audience = JwtHelper(accessToken).audience,
+        fullname = JwtHelper(accessToken).fullname,
+        username = JwtHelper(accessToken).username,
+        name = JwtHelper(accessToken).name,
+        surname = JwtHelper(accessToken).surname,
+        email = JwtHelper(accessToken).email;
 }

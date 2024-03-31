@@ -2,20 +2,19 @@ import 'package:bookshop_fe/models/user.dart';
 import 'package:flutter/material.dart';
 
 class LoginProvider with ChangeNotifier {
-  User emptyUser = User(jwtToken: "");
-  User currentUser = User(jwtToken: "");
+  User currentUser = User.empty();
 
   bool get loggedIn => currentUser.loggedIn;
   String get username => currentUser.name;
-  String get accessToken => currentUser.jwtToken;
+  String get accessToken => currentUser.accessToken;
 
   void login(token) {
-    currentUser = User(jwtToken: token);
+    currentUser = User.fromJwtToken(accessToken: token);
     notifyListeners();
   }
 
   void logout() {
-    currentUser = emptyUser;
+    currentUser = User.empty();
     notifyListeners();
   }
 }

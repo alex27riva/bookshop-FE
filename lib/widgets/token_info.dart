@@ -1,4 +1,4 @@
-import 'package:bookshop_fe/models/jwt_token.dart';
+import 'package:bookshop_fe/models/jwt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,7 +9,7 @@ class TokenInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    JwtToken jwt = JwtToken(token);
+    JwtHelper jwt = JwtHelper(token);
     return ExpansionTile(
       title: const Text('Token information'),
       children: <Widget>[
@@ -33,7 +33,8 @@ class TokenInfo extends StatelessWidget {
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: token));
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('JWT token copied to clipboard')),
+                    const SnackBar(
+                        content: Text('JWT token copied to clipboard')),
                   );
                 },
                 child: ListTile(

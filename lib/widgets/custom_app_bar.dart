@@ -20,7 +20,7 @@ class CustomAppBar extends StatelessWidget {
     bool loggedIn = context.watch<LoginProvider>().loggedIn;
     return AppBar(
       title: Text(
-          loggedIn ? "Welcome $user to my bookshop" : "Welcome, please log-in"),
+          loggedIn ? "$user, welcome to my bookshop" : "Welcome, please log-in"),
       actions: [
         if (!loggedIn)
           TextButton(

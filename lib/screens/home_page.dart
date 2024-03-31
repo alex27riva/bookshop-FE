@@ -1,4 +1,4 @@
-import 'package:bookshop_fe/models/jwt_token.dart';
+import 'package:bookshop_fe/models/jwt_helper.dart';
 import 'package:bookshop_fe/providers/login.dart';
 import 'package:bookshop_fe/services/pkce_auth.dart';
 import 'package:bookshop_fe/services/secure_storage.dart';
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     final lp = Provider.of<LoginProvider>(context, listen: false);
     _accessToken = await SecureStorage.getAccessToken();
     if (_accessToken.isNotEmpty) {
-      final jwt = JwtToken(_accessToken);
+      final jwt = JwtHelper(_accessToken);
       if (jwt.isValid()) {
         lp.login(_accessToken);
       }
