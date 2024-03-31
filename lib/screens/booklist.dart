@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:bookshop_fe/constants/urls.dart';
 import 'package:bookshop_fe/models/book.dart';
 import 'package:bookshop_fe/screens/cartscreen.dart';
-import 'package:bookshop_fe/widgets/bookItem.dart';
+import 'package:bookshop_fe/widgets/book_item.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
