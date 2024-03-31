@@ -6,6 +6,7 @@ import 'package:bookshop_fe/models/book.dart';
 import 'package:bookshop_fe/screens/cartscreen.dart';
 import 'package:bookshop_fe/widgets/bookItem.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class BookListScreen extends StatefulWidget {
   const BookListScreen({super.key});
@@ -24,22 +25,39 @@ class _BookListScreenState extends State<BookListScreen> {
   }
 
   Future<List<Book>> fetchData() async {
-    final response = await http.get(Uri.parse(Urls.booksEndpoint));
+    try {
+      final response = await http.get(Uri.parse(Urls.booksEndpoint));
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
 
-    if (response.statusCode == 200) {
-      // Parse the JSON response
-      final List<dynamic> data = jsonDecode(response.body);
-
-      return data.map((item) {
-        return Book(
-          item['title'],
-          item['author'],
-          item['cover_image_url'],
-        );
-      }).toList();
-    } else {
-      // Handle errors
-      print('Failed to load data: ${response.statusCode}');
+        return data.map((item) {
+          return Book(
+            item['title'],
+            item['author'],
+            item['cover_image_url'],
+          );
+        }).toList();
+      } else {
+        // Handle other errors (non-client exceptions)
+        throw Exception('Failed to load data: ${response.statusCode}');
+      }
+    } on ClientException catch (e) {
+      // Handle ClientExceptions (e.g., network errors)
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Network error! Check your connection.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return [];
+    } catch (e) {
+      // Handle other unexpected exceptions
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('An unexpected error occurred.'),
+          backgroundColor: Colors.red,
+        ),
+      );
       return [];
     }
   }

@@ -39,9 +39,11 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadToken() async {
     final lp = Provider.of<LoginProvider>(context, listen: false);
     _accessToken = await SecureStorage.getAccessToken();
-    final jwt = JwtToken(_accessToken);
-    if (jwt.isValid()) {
-      lp.login(_accessToken);
+    if (_accessToken.isNotEmpty) {
+      final jwt = JwtToken(_accessToken);
+      if (jwt.isValid()) {
+        lp.login(_accessToken);
+      }
     }
   }
 
