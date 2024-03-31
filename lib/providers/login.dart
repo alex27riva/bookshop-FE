@@ -1,7 +1,7 @@
 import 'package:bookshop_fe/models/user.dart';
 import 'package:flutter/material.dart';
 
-class Login with ChangeNotifier {
+class LoginProvider with ChangeNotifier {
   User emptyUser = User(jwtToken: "");
   User currentUser = User(jwtToken: "");
 

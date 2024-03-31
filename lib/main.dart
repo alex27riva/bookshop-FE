@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => Login())],
+    providers: [ChangeNotifierProvider(create: (_) => LoginProvider())],
     child: const MyApp(),
   ));
 }
@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomePage(),
         '/browse': (context) => const BookListScreen(),
-        //'/redirect': (context) => const WelcomeScreen(),
       },
     );
   }

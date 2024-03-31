@@ -14,7 +14,7 @@ class JwtToken {
   String get name => _decodedToken['name'];
   String get username => _decodedToken['preferred_username'];
   String get email => _decodedToken['email'];
-  
+
   int get expirationTimestamp => _decodedToken['exp'];
   int get issuedAtTimestamp => _decodedToken['iat'];
   List<String> get scopes => List<String>.from(_decodedToken['scopes'] ?? []);
@@ -24,5 +24,5 @@ class JwtToken {
   DateTime get issuedAtDate =>
       DateTime.fromMillisecondsSinceEpoch(issuedAtTimestamp * 1000);
 
-  bool isExpired() => DateTime.now().isAfter(expirationDate);
+  bool isValid() => DateTime.now().isBefore(expirationDate);
 }

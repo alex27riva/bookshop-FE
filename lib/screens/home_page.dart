@@ -1,3 +1,4 @@
+import 'package:bookshop_fe/models/jwt_token.dart';
 import 'package:bookshop_fe/providers/login.dart';
 import 'package:bookshop_fe/services/pkce_auth.dart';
 import 'package:bookshop_fe/services/secure_storage.dart';
@@ -18,27 +19,42 @@ class _HomePageState extends State<HomePage> {
   String _accessToken = "";
 
   Future<void> _handleLogin() async {
-    final login = Provider.of<Login>(context, listen: false);
+    final lp = Provider.of<LoginProvider>(context, listen: false);
 
     Credential result = await PKCEAuth.authenticateWeb();
     var tokenResponse = await result.getTokenResponse();
     if (tokenResponse.accessToken != null) {
       _accessToken = tokenResponse.accessToken!;
-      login.login(_accessToken);
+      lp.login(_accessToken);
       SecureStorage.setAccessToken(tokenResponse.accessToken);
     }
   }
 
-  _handleLogout() {
-    final login = Provider.of<Login>(context, listen: false);
+  void _handleLogout() {
+    final lp = Provider.of<LoginProvider>(context, listen: false);
     _accessToken = "";
-    login.logout();
+    lp.logout();
+  }
+
+  Future<void> _loadToken() async {
+    final lp = Provider.of<LoginProvider>(context, listen: false);
+    _accessToken = await SecureStorage.getAccessToken();
+    final jwt = JwtToken(_accessToken);
+    if (jwt.isValid()) {
+      lp.login(_accessToken);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadToken();
   }
 
   @override
   Widget build(BuildContext context) {
     // keep this
-    Provider.of<Login>(context);
+    Provider.of<LoginProvider>(context);
     return Scaffold(
         appBar: AppBar(
           title: CustomAppBar(
