@@ -3,10 +3,8 @@ import 'dart:html';
 import 'dart:math';
 
 import 'package:bookshop_fe/constants/urls.dart';
-import 'package:bookshop_fe/services/secure_storage.dart';
 import 'package:bookshop_fe/utils/environment.dart';
 import 'package:openid_client/openid_client.dart';
-
 
 class PKCEAuth {
   static String _randomString(int length) {
@@ -57,11 +55,5 @@ class PKCEAuth {
       window.location.href = authorizationUrl.toString();
       throw "Authenticating...";
     }
-  }
-
-  static Future<void> authenticateAndSaveToken() async {
-    Credential result = await PKCEAuth.authenticateWeb();
-    var tokenResponse = await result.getTokenResponse();
-    SecureStorage.setAccessToken(tokenResponse.accessToken);
   }
 }

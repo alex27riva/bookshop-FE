@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
               TextButton(
                   onPressed: () => Navigator.of(context).pushNamed('/browse'),
                   child: const Text("Browse")),
-              const OAuthSignupButton(),
+              //const OAuthSignupButton(),
             ],
           ),
         ));

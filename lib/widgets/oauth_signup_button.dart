@@ -7,7 +7,7 @@ class OAuthSignupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => PKCEAuth.authenticateAndSaveToken(),
+      onPressed: () => PKCEAuth.authenticateWeb(),
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(16.0),
         backgroundColor: Colors.blue,
