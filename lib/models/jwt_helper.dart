@@ -19,7 +19,7 @@ class JwtHelper {
 
   int get expirationTimestamp => _decodedToken['exp'];
   int get issuedAtTimestamp => _decodedToken['iat'];
-  List<String> get scopes => List<String>.from(_decodedToken['scopes'] ?? []);
+  String get scopes => _decodedToken['scope'] ?? [];
 
   DateTime get expirationDate =>
       DateTime.fromMillisecondsSinceEpoch(expirationTimestamp * 1000);

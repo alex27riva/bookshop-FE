@@ -3,7 +3,7 @@ import 'package:bookshop_fe/providers/login.dart';
 import 'package:bookshop_fe/services/pkce_auth.dart';
 import 'package:bookshop_fe/services/secure_storage.dart';
 import 'package:bookshop_fe/widgets/custom_app_bar.dart';
-import 'package:bookshop_fe/widgets/token_info.dart';
+import 'package:bookshop_fe/widgets/jwt_claim_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:openid_client/openid_client.dart';
 import 'package:provider/provider.dart';
@@ -82,8 +82,12 @@ class _HomePageState extends State<HomePage> {
               TextButton(
                   onPressed: () => Navigator.of(context).pushNamed('/browse'),
                   child: const Text("Browse")),
+              // vertical spacing
+              const SizedBox(
+                height: 10.0,
+              ),
               _accessToken != ""
-                  ? TokenInfo(
+                  ? JwtClaimViewer(
                       token: _accessToken,
                     )
                   : Container(),
