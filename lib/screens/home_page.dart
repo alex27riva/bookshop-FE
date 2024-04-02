@@ -3,6 +3,7 @@ import 'package:bookshop_fe/providers/login.dart';
 import 'package:bookshop_fe/services/pkce_auth.dart';
 import 'package:bookshop_fe/services/secure_storage.dart';
 import 'package:bookshop_fe/widgets/custom_app_bar.dart';
+import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:bookshop_fe/widgets/jwt_claim_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:openid_client/openid_client.dart';
@@ -60,10 +61,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: CustomAppBar(
-              title: 'MyApp',
               onLoginPressed: () => _handleLogin(),
               onLogoutPressed: () => _handleLogout()),
         ),
+        drawer: const CustomSideMenu(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
