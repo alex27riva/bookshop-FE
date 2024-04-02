@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final String title;
   final VoidCallback? onLoginPressed;
   final VoidCallback? onLogoutPressed;
 
   const CustomAppBar({
     Key? key,
-    required this.title,
     this.onLoginPressed,
     this.onLogoutPressed,
   }) : super(key: key);

@@ -6,6 +6,11 @@ import 'package:bookshop_fe/constants/urls.dart';
 import 'package:bookshop_fe/utils/environment.dart';
 import 'package:openid_client/openid_client.dart';
 
+class AuthenticationPendingException implements Exception {
+  const AuthenticationPendingException(this.message);
+  final String message;
+}
+
 class PKCEAuth {
   static String _randomString(int length) {
     var r = Random.secure();
@@ -53,7 +58,7 @@ class PKCEAuth {
       window.sessionStorage["auth_state"] = state;
       var authorizationUrl = flow.authenticationUri;
       window.location.href = authorizationUrl.toString();
-      throw "Authenticating...";
+      throw const AuthenticationPendingException("Authenticating...");
     }
   }
 }
