@@ -17,18 +17,22 @@ class CustomSideMenu extends Drawer {
           ),
           ListTile(
             title: const Text('Browse'),
+            leading: const Icon(Icons.travel_explore),
             onTap: () => Navigator.pushNamed(context, '/browse'),
           ),
           ListTile(
             title: const Text('Profile'),
+            leading: const Icon(Icons.person),
             onTap: () {},
           ),
           ListTile(
-            title: const Text('Whishlist'),
+            title: const Text('Wishlist'),
+            leading: const Icon(Icons.favorite),
             onTap: () => Navigator.pushNamed(context, '/wishlist'),
           ),
           ListTile(
             title: const Text('Shopping cart'),
+            leading: const Icon(Icons.shopping_cart_outlined),
             onTap: () => Navigator.pushNamed(context, '/cart'),
           ),
         ],
