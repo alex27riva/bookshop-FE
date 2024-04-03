@@ -30,13 +30,7 @@ class _BookListScreenState extends State<BookListScreen> {
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
 
-        return data.map((item) {
-          return Book(
-            item['title'],
-            item['author'],
-            item['cover_image_url'],
-          );
-        }).toList();
+        return data.map((item) => Book.fromJson(item)).toList();
       } else {
         // Handle other errors (non-client exceptions)
         throw Exception('Failed to load data: ${response.statusCode}');
