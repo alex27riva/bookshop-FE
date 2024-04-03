@@ -17,6 +17,7 @@ class CustomAppBar extends StatelessWidget {
     String user = context.watch<LoginProvider>().username;
     bool loggedIn = context.watch<LoginProvider>().loggedIn;
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Text(
           loggedIn ? "$user, welcome to my bookshop" : "Welcome, please log-in"),
       actions: [

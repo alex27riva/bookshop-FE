@@ -1,4 +1,5 @@
 import 'package:bookshop_fe/providers/login.dart';
+import 'package:bookshop_fe/screens/cartscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:bookshop_fe/screens/booklist.dart';
 import 'package:bookshop_fe/screens/home_page.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomePage(),
         '/browse': (context) => const BookListScreen(),
+        '/cart' : (context) => const CartScreen(),
       },
     );
   }
