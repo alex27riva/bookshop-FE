@@ -1,4 +1,5 @@
 import 'package:bookshop_fe/models/book.dart';
+import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:flutter/material.dart';
 
 class WishlistItem {
@@ -22,6 +23,7 @@ class WishlistPageState extends State<WishlistPage> {
       appBar: AppBar(
         title: const Text('Wishlist'),
       ),
+      drawer: const CustomSideMenu(),
       body: ListView.builder(
         itemCount: wishlistItems.length,
         itemBuilder: (context, index) {
