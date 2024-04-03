@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:bookshop_fe/models/book.dart';
 
-class BookItem extends StatelessWidget {
+class BookItem extends StatefulWidget {
   final Book book;
 
   const BookItem({super.key, required this.book});
+
+  @override
+  State<BookItem> createState() => _BookItemState();
+}
+
+class _BookItemState extends State<BookItem> {
+  bool isInWishlist = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class BookItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
-                  book.coverImageUrl,
+                  widget.book.coverImageUrl,
                   width: 80,
                   height: 130,
                   fit: BoxFit.cover,
@@ -47,12 +54,21 @@ class BookItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              Text('Title: ${book.title}',
+              Text('Title: ${widget.book.title}',
                   style: const TextStyle(
                       fontSize: 18.0, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
-              Text('Author: ${book.author}',
+              Text('Author: ${widget.book.author}',
                   style: const TextStyle(fontSize: 14.0)),
+              const SizedBox(height: 10),
+              IconButton(
+                icon: isInWishlist ? const Icon(Icons.favorite_border) : const Icon(Icons.favorite_outlined),
+                onPressed: () {
+                  setState(() {
+                    isInWishlist = !isInWishlist;
+                  });
+                },
+              ),
             ],
           ),
         ),
