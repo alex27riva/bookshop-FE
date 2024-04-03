@@ -24,6 +24,10 @@ class CustomSideMenu extends Drawer {
             onTap: () {},
           ),
           ListTile(
+            title: const Text('Whishlist'),
+            onTap: () => Navigator.pushNamed(context, '/wishlist'),
+          ),
+          ListTile(
             title: const Text('Shopping cart'),
             onTap: () => Navigator.pushNamed(context, '/cart'),
           ),
