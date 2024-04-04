@@ -1,5 +1,8 @@
+import 'package:bookshop_fe/providers/login.dart';
+import 'package:bookshop_fe/services/backend_service.dart';
 import 'package:flutter/material.dart';
 import 'package:bookshop_fe/models/book.dart';
+import 'package:provider/provider.dart';
 
 class BookItem extends StatefulWidget {
   final Book book;
@@ -15,6 +18,7 @@ class _BookItemState extends State<BookItem> {
 
   @override
   Widget build(BuildContext context) {
+    final lp = Provider.of<LoginProvider>(context);
     return SizedBox(
       height: 450,
       width: 120,
@@ -62,8 +66,17 @@ class _BookItemState extends State<BookItem> {
                   style: const TextStyle(fontSize: 14.0)),
               const SizedBox(height: 10),
               IconButton(
-                icon: isInWishlist ? const Icon(Icons.favorite_border) : const Icon(Icons.favorite_outlined),
+                icon: isInWishlist
+                    ? const Icon(Icons.favorite_border)
+                    : const Icon(Icons.favorite_outlined),
                 onPressed: () {
+                  if (isInWishlist) {
+                    BackendService.removeFromWishlist(
+                        lp.accessToken, widget.book.id);
+                  } else {
+                    BackendService.addToWishlist(
+                        lp.accessToken, widget.book.id);
+                  }
                   setState(() {
                     isInWishlist = !isInWishlist;
                   });

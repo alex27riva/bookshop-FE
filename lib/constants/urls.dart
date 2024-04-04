@@ -9,5 +9,5 @@ class Urls {
   static const String baseDomain = 'http://localhost:5000';
   static const String booksEndpoint = '$baseDomain/api/books';
   static const String signupEndpoint = '$baseDomain/api/signup';
-  static const String addToWishlistEndpoint = '$baseDomain/api/wishlist';
+  static const String wishlistEndpoint = '$baseDomain/api/wishlist';
 }
