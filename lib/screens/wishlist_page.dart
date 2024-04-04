@@ -1,11 +1,10 @@
 import 'package:bookshop_fe/models/book.dart';
+import 'package:bookshop_fe/providers/login.dart';
+import 'package:bookshop_fe/services/backend_service.dart';
 import 'package:bookshop_fe/widgets/custom_side_menu.dart';
+import 'package:bookshop_fe/widgets/wishlist_tile.dart';
 import 'package:flutter/material.dart';
-
-class WishlistItem {
-  final Book book;
-  WishlistItem(this.book);
-}
+import 'package:provider/provider.dart';
 
 class WishlistPage extends StatefulWidget {
   const WishlistPage({super.key});
@@ -15,7 +14,18 @@ class WishlistPage extends StatefulWidget {
 }
 
 class WishlistPageState extends State<WishlistPage> {
-  List<WishlistItem> wishlistItems = [];
+  List<Book> wishlistBooks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchWishlist();
+  }
+
+  Future<void> _fetchWishlist() async {
+    final lp = Provider.of<LoginProvider>(context, listen: false);
+    wishlistBooks = await BackendService.fetchWishlist(lp.accessToken);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +34,14 @@ class WishlistPageState extends State<WishlistPage> {
         title: const Text('Wishlist'),
       ),
       drawer: const CustomSideMenu(),
-      body: ListView.builder(
-        itemCount: wishlistItems.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: Image.network(wishlistItems[index].book.coverImageUrl),
-            title: Text(wishlistItems[index].book.title),
-            subtitle: Text(wishlistItems[index].book.author),
-            //trailing: Text('\$${wishlistItems[index].book.price.toStringAsFixed(2)}'),
-            onTap: () {
-              // Implement action when tapping on a wishlist item
-            },
-          );
-        },
-      ),
+      body: wishlistBooks.isEmpty
+          ? const Center(child: Text('Your wishlist is empty'))
+          : ListView.builder(
+              itemCount: wishlistBooks.length,
+              itemBuilder: (context, index) {
+                return WishListTile(book: wishlistBooks[index]);
+              },
+            ),
     );
   }
 }

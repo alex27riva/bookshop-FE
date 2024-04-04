@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bookshop_fe/constants/urls.dart';
+import 'package:bookshop_fe/models/book.dart';
+import 'package:bookshop_fe/screens/wishlist_page.dart';
 import 'package:http/http.dart' as http;
 
 class BackendService {
@@ -14,6 +16,28 @@ class BackendService {
       },
     );
     return response;
+  }
+
+  static Future<List<Book>> fetchWishlist(String token) async {
+    final response = await http.get(
+      Uri.parse(Urls.wishlistEndpoint),
+      headers: {
+        "Content-Type": "application/json",
+        HttpHeaders.authorizationHeader: "Bearer $token",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      final wishlist = data['wishlist'] as List<dynamic>;
+
+      var wishlistBooks = wishlist.map((item) => Book.fromJson(item)).toList();
+      return wishlistBooks;
+    } else {
+      // Handle API errors here, e.g., show a snackbar
+      print('Error fetching wishlist: ${response.statusCode}');
+      return [];
+    }
   }
 
   static Future<http.Response> addToWishlist(String token, int bookId) async {
