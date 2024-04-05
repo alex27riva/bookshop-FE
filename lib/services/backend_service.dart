@@ -22,7 +22,6 @@ class BackendService {
     final response = await http.get(
       Uri.parse(Urls.wishlistEndpoint),
       headers: {
-        "Content-Type": "application/json",
         HttpHeaders.authorizationHeader: "Bearer $token",
       },
     );
@@ -30,6 +29,7 @@ class BackendService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
       final wishlist = data['wishlist'] as List<dynamic>;
+      print(wishlist);
 
       var wishlistBooks = wishlist.map((item) => Book.fromJson(item)).toList();
       return wishlistBooks;

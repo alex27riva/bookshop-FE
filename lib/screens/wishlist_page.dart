@@ -14,17 +14,17 @@ class WishlistPage extends StatefulWidget {
 }
 
 class WishlistPageState extends State<WishlistPage> {
-  List<Book> wishlistBooks = [];
+  late Future<List<Book>> _fetchWishlist;
 
   @override
   void initState() {
     super.initState();
-    _fetchWishlist();
+    _fetchWishlist = fetchWishlistData();
   }
 
-  Future<void> _fetchWishlist() async {
+  Future<List<Book>> fetchWishlistData() async {
     final lp = Provider.of<LoginProvider>(context, listen: false);
-    wishlistBooks = await BackendService.fetchWishlist(lp.accessToken);
+    return BackendService.fetchWishlist(lp.accessToken);
   }
 
   @override
@@ -34,14 +34,26 @@ class WishlistPageState extends State<WishlistPage> {
         title: const Text('Wishlist'),
       ),
       drawer: const CustomSideMenu(),
-      body: wishlistBooks.isEmpty
-          ? const Center(child: Text('Your wishlist is empty'))
-          : ListView.builder(
+      body: FutureBuilder<List<Book>>(
+        future: _fetchWishlist,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+            return const Center(child: Text('Your wishlist is empty'));
+          } else {
+            final wishlistBooks = snapshot.data!;
+            return ListView.builder(
               itemCount: wishlistBooks.length,
               itemBuilder: (context, index) {
                 return WishListTile(book: wishlistBooks[index]);
               },
-            ),
+            );
+          }
+        },
+      ),
     );
   }
 }
