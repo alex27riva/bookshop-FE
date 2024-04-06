@@ -58,16 +58,23 @@ class _BookItemState extends State<BookItem> {
                 ),
               ),
             ),
+            // Book title
             Flexible(
               flex: 1,
-              child: Text('Title: ${widget.book.title}',
+              child: Text(widget.book.title,
                   style: const TextStyle(
                       fontSize: 18.0, fontWeight: FontWeight.bold)),
             ),
+            // Book Author
             Flexible(
               flex: 1,
-              child: Text('Author: ${widget.book.author}',
-                  style: const TextStyle(fontSize: 14.0)),
+              child: Text(widget.book.author,
+                  style: const TextStyle(fontSize: 12.0)),
+            ),
+            Flexible(
+              flex: 1,
+              child: Text('${widget.book.price.toString()} \$',
+                  style: const TextStyle(fontSize: 12.0)),
             ),
             Flexible(
               flex: 2,
