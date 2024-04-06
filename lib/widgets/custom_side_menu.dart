@@ -48,6 +48,11 @@ class CustomSideMenu extends Drawer {
             leading: const Icon(Icons.shopping_cart_outlined),
             onTap: () => Navigator.pushNamed(context, '/cart'),
           ),
+          ListTile(
+            title: const Text('Debug'),
+            leading: const Icon(Icons.perm_device_information),
+            onTap: () => Navigator.pushNamed(context, '/debug'),
+          ),
         ],
       ),
     );
