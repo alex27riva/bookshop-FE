@@ -1,4 +1,5 @@
 import 'package:bookshop_fe/models/jwt_helper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,9 +14,10 @@ class JwtClaimViewer extends StatelessWidget {
     return ExpansionTile(
       title: const Text('Token information'),
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(16.0),
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxHeight: 400),
           child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
             child: Column(
               children: [
                 ListTile(
