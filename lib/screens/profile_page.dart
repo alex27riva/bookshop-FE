@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
-  //final Function(String newAvatarUrl) onAvatarChanged;
 
   const ProfilePage({
     super.key,
-     //this.onAvatarChanged,
   });
 
   @override
@@ -26,7 +24,7 @@ class ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final lp = Provider.of<LoginProvider>(context);
-    var name = lp.currentUser.fullname;
+    var name = lp.currentUser.fullName;
     var email = lp.currentUser.email;
     return Scaffold(
       appBar: AppBar(
@@ -38,14 +36,19 @@ class ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () {
-                // _changeAvatar();
-              },
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(_currentAvatarUrl),
-              ),
-            ),
+                onTap: () {
+                  // _changeAvatar();
+                },
+                child: _currentAvatarUrl.isEmpty
+                    ? const CircleAvatar(
+                        radius: 60,
+                        backgroundImage:
+                            AssetImage('assets/default-profile.png'),
+                      )
+                    : CircleAvatar(
+                        radius: 60,
+                        backgroundImage: NetworkImage(_currentAvatarUrl),
+                      )),
             const SizedBox(height: 20),
             Text(
               'Name: $name',

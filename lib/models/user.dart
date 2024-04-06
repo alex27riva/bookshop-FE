@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bookshop_fe/models/jwt_helper.dart';
 
 class User {
@@ -6,11 +8,12 @@ class User {
   final String id;
   final String issuer;
   final String audience;
-  final String fullname;
+  final String fullName;
   final String username;
   final String name;
   final String surname;
   final String email;
+  final String profilePicUrl;
 
   User.empty()
       : accessToken = '',
@@ -18,19 +21,21 @@ class User {
         id = '',
         issuer = '',
         audience = '',
-        fullname = '',
+        fullName = '',
         username = '',
         name = '',
         surname = '',
-        email = '';
+        email = '',
+        profilePicUrl = '';
 
   User.fromJwtToken({required this.accessToken, this.loggedIn = true})
       : id = JwtHelper(accessToken).subject,
         issuer = JwtHelper(accessToken).issuer,
         audience = JwtHelper(accessToken).audience,
-        fullname = JwtHelper(accessToken).fullname,
+        fullName = JwtHelper(accessToken).fullName,
         username = JwtHelper(accessToken).username,
         name = JwtHelper(accessToken).name,
         surname = JwtHelper(accessToken).surname,
-        email = JwtHelper(accessToken).email;
+        email = JwtHelper(accessToken).email,
+        profilePicUrl = JwtHelper(accessToken).picture;
 }

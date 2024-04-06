@@ -11,11 +11,12 @@ class JwtHelper {
   String get subject => _decodedToken['sub'];
   String get issuer => _decodedToken['iss'];
   String get audience => _decodedToken['aud'];
-  String get fullname => _decodedToken['name'];
+  String get fullName => _decodedToken['name'];
   String get username => _decodedToken['preferred_username'];
   String get name => _decodedToken['given_name'];
   String get surname => _decodedToken['family_name'];
   String get email => _decodedToken['email'];
+  String get picture => _decodedToken['picture'] ?? '';
 
   int get expirationTimestamp => _decodedToken['exp'];
   int get issuedAtTimestamp => _decodedToken['iat'];
