@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:bookshop_fe/constants/urls.dart';
 import 'package:bookshop_fe/models/book.dart';
-import 'package:bookshop_fe/screens/cartscreen.dart';
 import 'package:bookshop_fe/widgets/book_item.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -60,21 +60,9 @@ class _BookListScreenState extends State<BookListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Book List'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CartScreen(),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
+    title: const Text('Browse'),
+    ),
+      drawer: const CustomSideMenu(),
       body: FutureBuilder<List<Book>>(
         future: fetchData(),
         builder: (context, snapshot) {

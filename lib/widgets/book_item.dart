@@ -79,18 +79,16 @@ class _BookItemState extends State<BookItem> {
             Flexible(
               flex: 2,
               child: IconButton(
-                icon: isInWishlist
+                icon: !isInWishlist
                     ? const Icon(Icons.favorite_border)
                     : const Icon(Icons.favorite_outlined),
                 onPressed: () {
-                  if (isInWishlist) {
-                    BackendService.removeFromWishlist(
+                  if (!isInWishlist) {
+                    BackendService.addToWishlist(
                         lp.accessToken, widget.book.id);
-                  } else {
-                    BackendService.addToWishlist(lp.accessToken, widget.book.id);
                   }
                   setState(() {
-                    isInWishlist = !isInWishlist;
+                    isInWishlist = true;
                   });
                 },
               ),

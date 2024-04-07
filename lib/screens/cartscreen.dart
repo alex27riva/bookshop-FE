@@ -1,3 +1,4 @@
+import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:bookshop_fe/models/book.dart';
 
@@ -10,8 +11,9 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Carrello'),
+        title: const Text('Shopping cart'),
       ),
+      drawer: const CustomSideMenu(),
       body: cartItems.isEmpty
           ? const Center(child: Text('The cart is empty.'))
           : ListView.builder(

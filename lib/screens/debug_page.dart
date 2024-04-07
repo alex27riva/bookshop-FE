@@ -19,7 +19,9 @@ class _DebugPageState extends State<DebugPage> {
   Widget build(BuildContext context) {
     var lp = Provider.of<LoginProvider>(context);
     return Scaffold(
-        //appBar: CustomAppBar(onLoginPressed: null,onLogoutPressed: null,)
+        appBar: AppBar(
+          title: const Text('Debug'),
+        ),
         drawer: const CustomSideMenu(),
         body: lp.loggedIn
             ? Column(
