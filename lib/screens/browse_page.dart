@@ -8,14 +8,14 @@ import 'package:bookshop_fe/widgets/book_item.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
-class BookListScreen extends StatefulWidget {
-  const BookListScreen({super.key});
+class BrowsePage extends StatefulWidget {
+  const BrowsePage({super.key});
 
   @override
-  State<BookListScreen> createState() => _BookListScreenState();
+  State<BrowsePage> createState() => _BrowsePageState();
 }
 
-class _BookListScreenState extends State<BookListScreen> {
+class _BrowsePageState extends State<BrowsePage> {
   List<Book> books = [];
 
   @override
@@ -35,7 +35,7 @@ class _BookListScreenState extends State<BookListScreen> {
         // Handle other errors (non-client exceptions)
         throw Exception('Failed to load data: ${response.statusCode}');
       }
-    } on ClientException catch (e) {
+    } on ClientException {
       // Handle ClientExceptions (e.g., network errors)
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

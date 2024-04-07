@@ -2,10 +2,10 @@ import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:bookshop_fe/models/book.dart';
 
-class CartScreen extends StatelessWidget {
+class CartPage extends StatelessWidget {
   static List<Book> cartItems = [];
 
-  const CartScreen({super.key});
+  const CartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
