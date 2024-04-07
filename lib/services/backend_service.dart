@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bookshop_fe/constants/urls.dart';
 import 'package:bookshop_fe/models/book.dart';
+import 'package:bookshop_fe/models/user.dart';
 import 'package:bookshop_fe/screens/wishlist_page.dart';
 import 'package:http/http.dart' as http;
 
@@ -37,6 +38,35 @@ class BackendService {
       // Handle API errors here, e.g., show a snackbar
       print('Error fetching wishlist: ${response.statusCode}');
       return [];
+    }
+  }
+
+  static Future<User> getProfile(String token) async {
+    final response = await http.get(Uri.parse(Urls.profileEndpoint),
+        headers: {HttpHeaders.authorizationHeader: "Bearer $token"});
+    if (response.statusCode == 200) {
+      return User.fromBackendResponse(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to fetch profile: ${response.statusCode}');
+    }
+  }
+
+  static Future<Map<String, dynamic>> updateProfilePicture(
+      String token, String newUrl) async {
+    final response = await http.put(
+      Uri.parse(Urls.profilePicUpdateEndpoint),
+      headers: {
+        HttpHeaders.authorizationHeader: "Bearer $token",
+        'Content-Type': 'application/json'
+      },
+      body: jsonEncode({'profile_pic_url': newUrl}),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception(
+          'Failed to update profile picture: ${response.statusCode}');
     }
   }
 

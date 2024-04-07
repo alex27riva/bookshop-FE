@@ -10,4 +10,6 @@ class Urls {
   static const String booksEndpoint = '$baseDomain/api/books';
   static const String signupEndpoint = '$baseDomain/api/signup';
   static const String wishlistEndpoint = '$baseDomain/api/wishlist';
+  static const String profileEndpoint = '$baseDomain/api/profile';
+  static const String profilePicUpdateEndpoint = '$baseDomain/api/profile/picture';
 }
