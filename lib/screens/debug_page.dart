@@ -4,6 +4,7 @@ import 'package:bookshop_fe/widgets/custom_app_bar.dart';
 import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:bookshop_fe/widgets/jwt_claim_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class DebugPage extends StatefulWidget {
@@ -32,6 +33,19 @@ class _DebugPageState extends State<DebugPage> {
                           onPressed: () =>
                               BackendService.checkAccount(lp.accessToken),
                           child: const Text("Force account registration",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Clipboard.setData(
+                                ClipboardData(text: lp.accessToken));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('JWT token copied to clipboard')),
+                            );
+                          },
+                          child: const Text("Copy token",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                       ],
