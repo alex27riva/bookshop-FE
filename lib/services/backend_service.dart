@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bookshop_fe/constants/urls.dart';
+import 'package:bookshop_fe/constants/endpoints.dart';
 import 'package:bookshop_fe/models/book.dart';
 import 'package:bookshop_fe/models/user.dart';
 import 'package:http/http.dart' as http;
 
 class BackendService {
   static Future<List<Book>> fetchBooks() async {
-    final response = await http.get(Uri.parse(Urls.booksEndpoint));
+    final response = await http.get(Uri.parse(Endpoints.books));
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
 
@@ -21,7 +21,7 @@ class BackendService {
 
   static Future<http.Response> checkAccount(String token) async {
     final response = await http.post(
-      Uri.parse(Urls.signupEndpoint),
+      Uri.parse(Endpoints.signup),
       headers: {
         "Content-Type": "application/json",
         HttpHeaders.authorizationHeader: "Bearer $token"
@@ -32,7 +32,7 @@ class BackendService {
 
   static Future<List<Book>> fetchWishlist(String token) async {
     final response = await http.get(
-      Uri.parse(Urls.wishlistEndpoint),
+      Uri.parse(Endpoints.wishlist),
       headers: {
         HttpHeaders.authorizationHeader: "Bearer $token",
       },
@@ -53,7 +53,7 @@ class BackendService {
   }
 
   static Future<User> getProfile(String token) async {
-    final response = await http.get(Uri.parse(Urls.profileEndpoint),
+    final response = await http.get(Uri.parse(Endpoints.profile),
         headers: {HttpHeaders.authorizationHeader: "Bearer $token"});
     if (response.statusCode == 200) {
       return User.fromBackendResponse(jsonDecode(response.body));
@@ -65,7 +65,7 @@ class BackendService {
   static Future<Map<String, dynamic>> updateProfilePicture(
       String token, String newUrl) async {
     final response = await http.put(
-      Uri.parse(Urls.profilePicUpdateEndpoint),
+      Uri.parse(Endpoints.profilePicUpdate),
       headers: {
         HttpHeaders.authorizationHeader: "Bearer $token",
         'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ class BackendService {
   static Future<http.Response> addToWishlist(String token, int bookId) async {
     final Map<String, dynamic> body = {"book_id": bookId};
     final response = await http.post(
-      Uri.parse(Urls.wishlistEndpoint),
+      Uri.parse(Endpoints.wishlist),
       headers: {
         "Content-Type": "application/json",
         HttpHeaders.authorizationHeader: "Bearer $token",
@@ -96,7 +96,7 @@ class BackendService {
 
   static Future<http.Response> removeFromWishlist(
       String token, int bookId) async {
-    String baseUrl = Urls.wishlistEndpoint;
+    String baseUrl = Endpoints.wishlist;
     final response = await http.delete(
       Uri.parse("$baseUrl/$bookId"),
       headers: {

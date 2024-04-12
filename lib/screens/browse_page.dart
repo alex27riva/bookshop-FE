@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:bookshop_fe/constants/endpoints.dart';
 import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:bookshop_fe/constants/urls.dart';
 import 'package:bookshop_fe/models/book.dart';
 import 'package:bookshop_fe/widgets/book_item.dart';
 import 'package:http/http.dart' as http;
@@ -26,7 +26,7 @@ class _BrowsePageState extends State<BrowsePage> {
 
   Future<List<Book>> fetchData() async {
     try {
-      final response = await http.get(Uri.parse(Urls.booksEndpoint));
+      final response = await http.get(Uri.parse(Endpoints.books));
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
 
