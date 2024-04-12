@@ -25,6 +25,11 @@ class CustomSideMenu extends Drawer {
             onTap: () => Navigator.pushNamed(context, '/'),
           ),
           ListTile(
+            title: const Text('Admin'),
+            leading: const Icon(Icons.admin_panel_settings),
+            onTap: () => Navigator.pushNamed(context, '/admin'),
+          ),
+          ListTile(
             title: const Text('Browse'),
             leading: const Icon(Icons.travel_explore),
             onTap: () => Navigator.pushNamed(context, '/browse'),

@@ -4,10 +4,21 @@ import 'dart:io';
 import 'package:bookshop_fe/constants/urls.dart';
 import 'package:bookshop_fe/models/book.dart';
 import 'package:bookshop_fe/models/user.dart';
-import 'package:bookshop_fe/screens/wishlist_page.dart';
 import 'package:http/http.dart' as http;
 
 class BackendService {
+  static Future<List<Book>> fetchBooks() async {
+    final response = await http.get(Uri.parse(Urls.booksEndpoint));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+
+      return data.map((item) => Book.fromJson(item)).toList();
+    } else {
+      // Handle other errors (non-client exceptions)
+      throw Exception('Failed to load data: ${response.statusCode}');
+    }
+  }
+
   static Future<http.Response> checkAccount(String token) async {
     final response = await http.post(
       Uri.parse(Urls.signupEndpoint),
@@ -35,7 +46,7 @@ class BackendService {
       var wishlistBooks = wishlist.map((item) => Book.fromJson(item)).toList();
       return wishlistBooks;
     } else {
-      // Handle API errors here, e.g., show a snackbar
+// Handle API errors here, e.g., show a snackbar
       print('Error fetching wishlist: ${response.statusCode}');
       return [];
     }
