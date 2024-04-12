@@ -19,6 +19,7 @@ class _BookItemState extends State<BookItem> {
   @override
   Widget build(BuildContext context) {
     final lp = Provider.of<LoginProvider>(context);
+    var loggedIn = lp.currentUser.loggedIn;
     return Card(
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -76,23 +77,25 @@ class _BookItemState extends State<BookItem> {
               child: Text('${widget.book.price.toString()} \$',
                   style: const TextStyle(fontSize: 12.0)),
             ),
-            Flexible(
-              flex: 2,
-              child: IconButton(
-                icon: !isInWishlist
-                    ? const Icon(Icons.favorite_border)
-                    : const Icon(Icons.favorite_outlined),
-                onPressed: () {
-                  if (!isInWishlist) {
-                    BackendService.addToWishlist(
-                        lp.accessToken, widget.book.id);
-                  }
-                  setState(() {
-                    isInWishlist = true;
-                  });
-                },
-              ),
-            ),
+            loggedIn
+                ? Flexible(
+                    flex: 2,
+                    child: IconButton(
+                      icon: !isInWishlist
+                          ? const Icon(Icons.favorite_border)
+                          : const Icon(Icons.favorite_outlined),
+                      onPressed: () {
+                        if (!isInWishlist) {
+                          BackendService.addToWishlist(
+                              lp.accessToken, widget.book.id);
+                        }
+                        setState(() {
+                          isInWishlist = true;
+                        });
+                      },
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

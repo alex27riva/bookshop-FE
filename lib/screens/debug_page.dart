@@ -1,6 +1,5 @@
 import 'package:bookshop_fe/providers/login.dart';
 import 'package:bookshop_fe/services/backend_service.dart';
-import 'package:bookshop_fe/widgets/custom_app_bar.dart';
 import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:bookshop_fe/widgets/jwt_claim_viewer.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +55,6 @@ class _DebugPageState extends State<DebugPage> {
                   JwtClaimViewer(token: lp.accessToken),
                 ],
               )
-            : Container());
+            : const Center(child: Text("Please login")));
   }
 }

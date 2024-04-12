@@ -9,6 +9,7 @@ class CustomSideMenu extends Drawer {
   Widget build(BuildContext context) {
     final lp = Provider.of<LoginProvider>(context);
     bool loggedIn = lp.currentUser.loggedIn;
+    bool admin = lp.currentUser.admin;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -24,11 +25,13 @@ class CustomSideMenu extends Drawer {
             leading: const Icon(Icons.home),
             onTap: () => Navigator.pushNamed(context, '/'),
           ),
-          ListTile(
-            title: const Text('Admin'),
-            leading: const Icon(Icons.admin_panel_settings),
-            onTap: () => Navigator.pushNamed(context, '/admin'),
-          ),
+          admin
+              ? ListTile(
+                  title: const Text('Admin'),
+                  leading: const Icon(Icons.admin_panel_settings),
+                  onTap: () => Navigator.pushNamed(context, '/admin'),
+                )
+              : Container(),
           ListTile(
             title: const Text('Browse'),
             leading: const Icon(Icons.travel_explore),
