@@ -17,6 +17,8 @@ class JwtHelper {
   String get surname => _decodedToken['family_name'];
   String get email => _decodedToken['email'];
   String get picture => _decodedToken['picture'] ?? '';
+  List<String> get roles => _decodedToken['resource_access']['bookshop']['roles'].whereType<String>().toList();
+
 
   int get expirationTimestamp => _decodedToken['exp'];
   int get issuedAtTimestamp => _decodedToken['iat'];

@@ -1,5 +1,4 @@
 import 'package:bookshop_fe/models/jwt_helper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -31,6 +30,10 @@ class JwtClaimViewer extends StatelessWidget {
                 ListTile(
                   title: const Text("Scopes"),
                   subtitle: Text(jwt.scopes),
+                ),
+                ListTile(
+                  title: const Text("Roles"),
+                  subtitle: Text(jwt.roles.join(" ")),
                 ),
                 ListTile(
                   title: const Text("Expiration"),

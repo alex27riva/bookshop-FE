@@ -45,6 +45,7 @@ class ProfilePageState extends State<ProfilePage> {
     final lp = Provider.of<LoginProvider>(context);
     var name = lp.currentUser.fullName;
     var email = lp.currentUser.email;
+    var isAdmin = lp.currentUser.roles.contains("admin");
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -85,6 +86,11 @@ class ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 10),
             Text(
               'Email: $email',
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Account type: ${isAdmin ? "admin" : "standard"}',
               style: const TextStyle(fontSize: 20),
             ),
           ],
