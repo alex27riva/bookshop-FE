@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bookshop_fe/models/jwt_helper.dart';
 
 class User {
@@ -14,6 +12,7 @@ class User {
   final String surname;
   final String email;
   final String profilePicUrl;
+  final List<String> roles;
 
   User.empty()
       : accessToken = '',
@@ -26,7 +25,8 @@ class User {
         name = '',
         surname = '',
         email = '',
-        profilePicUrl = '';
+        profilePicUrl = '',
+        roles = [];
 
   User.fromJwtToken({required this.accessToken, this.loggedIn = true})
       : sub = JwtHelper(accessToken).subject,
@@ -37,7 +37,8 @@ class User {
         name = JwtHelper(accessToken).name,
         surname = JwtHelper(accessToken).surname,
         email = JwtHelper(accessToken).email,
-        profilePicUrl = JwtHelper(accessToken).picture;
+        profilePicUrl = JwtHelper(accessToken).picture,
+        roles = JwtHelper(accessToken).roles;
 
   User.fromBackendResponse(Map<String, dynamic> json)
       : sub = json['id'].toString(),
@@ -50,5 +51,6 @@ class User {
         fullName = '',
         username = '',
         name = json['name'] ?? '',
-        surname = json['surname'] ?? '';
+        surname = json['surname'] ?? '',
+        roles = [];
 }
