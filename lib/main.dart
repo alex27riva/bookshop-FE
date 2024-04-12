@@ -1,4 +1,5 @@
 import 'package:bookshop_fe/providers/login.dart';
+import 'package:bookshop_fe/screens/admin_page.dart';
 import 'package:bookshop_fe/screens/cart_page.dart';
 import 'package:bookshop_fe/screens/debug_page.dart';
 import 'package:bookshop_fe/screens/profile_page.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/wishlist' : (context) => const WishlistPage(),
         '/cart' : (context) => const CartPage(),
         '/debug' : (context) => const DebugPage(),
+        '/admin' : (context) => AdminPage(),
       },
     );
   }
