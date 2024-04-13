@@ -1,5 +1,3 @@
-import 'package:bookshop_fe/utils/environment.dart';
-
 class Endpoints {
   // Prevent this class being instantiated
   Endpoints._();
@@ -10,4 +8,5 @@ class Endpoints {
   static const String wishlist = '$baseDomain/api/wishlist';
   static const String profile = '$baseDomain/api/profile';
   static const String profilePicUpdate = '$baseDomain/api/profile/picture';
+  static const String adminBookDelete = '$baseDomain/api/admin/book';
 }

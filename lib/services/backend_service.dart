@@ -106,4 +106,16 @@ class BackendService {
     );
     return response;
   }
+
+  static Future<http.Response> adminBookDelete(int bookId) async {
+    String baseUrl = Endpoints.adminBookDelete;
+    final response = await http.delete(
+      Uri.parse("$baseUrl/$bookId"),
+      headers: {
+        "Content-Type": "application/json",
+        //HttpHeaders.authorizationHeader: "Bearer $token",
+      },
+    );
+    return response;
+  }
 }
