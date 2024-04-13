@@ -1,6 +1,8 @@
 # bookshop_fe
 
-Online bookshop frontend written in Flutter
+Online bookshop frontend written in Flutter.
+
+!["Bookshop"](./.github/bookshop-splash.png)
 
 ## Configuration
 
@@ -15,5 +17,15 @@ KEYCLOAK_HOST=localhost:8080
 
 ## Run
 
-`flutter run -d chrome --web-renderer html --web-port=8000
-`
+### Start the backend
+
+Clone the [bookshop-BE](https://github.com/alex27riva/bookshop-FE) repo and start it.
+
+I suggest using [Pycharm](https://www.jetbrains.com/pycharm/) for Venv and Packages installation.
+
+### Start the frontend
+
+```bash
+flutter run -d chrome --web-renderer html --web-port=8000
+```
+
