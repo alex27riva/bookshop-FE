@@ -12,7 +12,7 @@ class AdminListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(book.title),
-      subtitle: Text('$book.author - \$${book.price.toStringAsFixed(2)}'),
+      subtitle: Text('${book.author} - \$${book.price.toStringAsFixed(2)}'),
       trailing: TextButton(
         onPressed: () {
           onDelete.call();
