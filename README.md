@@ -19,7 +19,7 @@ KEYCLOAK_HOST=localhost:8080
 
 ### Start the backend
 
-Clone the [bookshop-BE](https://github.com/alex27riva/bookshop-FE) repo and start it.
+Clone the [bookshop-BE](https://github.com/alex27riva/bookshop-BE) repo and start it.
 
 I suggest using [Pycharm](https://www.jetbrains.com/pycharm/) for Venv and Packages installation.
 
