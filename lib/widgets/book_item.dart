@@ -1,7 +1,7 @@
+import 'package:bookshop_fe/models/book.dart';
 import 'package:bookshop_fe/providers/login.dart';
 import 'package:bookshop_fe/services/backend_service.dart';
 import 'package:flutter/material.dart';
-import 'package:bookshop_fe/models/book.dart';
 import 'package:provider/provider.dart';
 
 class BookItem extends StatefulWidget {
@@ -37,24 +37,10 @@ class _BookItemState extends State<BookItem> {
                 borderRadius: BorderRadius.circular(10.0),
                 child: AspectRatio(
                   aspectRatio: 0.6,
-                  child: Image.network(
-                    widget.book.coverImageUrl,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      } else {
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    (loadingProgress.expectedTotalBytes ?? 1)
-                                : null,
-                          ),
-                        );
-                      }
-                    },
+                  child: FadeInImage(
+                    image: NetworkImage(widget.book.coverImageUrl),
+                    placeholder:
+                        const AssetImage('assets/book-cover-placeholder.png'),
                   ),
                 ),
               ),
