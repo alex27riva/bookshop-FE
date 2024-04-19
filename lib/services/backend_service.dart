@@ -107,20 +107,19 @@ class BackendService {
     return response;
   }
 
-  static Future<http.Response> adminBookDelete(int bookId) async {
+  static Future<http.Response> adminBookDelete(String token, int bookId) async {
     String endpoint = Endpoints.adminBook;
     final response = await http.delete(
       Uri.parse("$endpoint/$bookId"),
       headers: {
         "Content-Type": "application/json",
-        //HttpHeaders.authorizationHeader: "Bearer $token",
+        HttpHeaders.authorizationHeader: "Bearer $token",
       },
     );
     return response;
   }
 
-  static Future<http.Response> adminBookAdd(
-      String title, String author, double price, String coverImageUrl) async {
+  static Future<http.Response> adminBookAdd(String token, String title, String author, double price, String coverImageUrl) async {
     final Map<String, dynamic> bookData = {
       'title': title,
       'author': author,
@@ -132,7 +131,10 @@ class BackendService {
 
     final response = await http.post(
       Uri.parse(Endpoints.adminBook),
-      headers: {"Content-Type": "application/json"},
+      headers: {
+        "Content-Type": "application/json",
+        HttpHeaders.authorizationHeader: "Bearer $token",
+      },
       body: body,
     );
 

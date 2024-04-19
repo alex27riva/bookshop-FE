@@ -1,8 +1,10 @@
 import 'package:bookshop_fe/models/book.dart';
+import 'package:bookshop_fe/providers/login.dart';
 import 'package:bookshop_fe/services/backend_service.dart';
 import 'package:bookshop_fe/widgets/admin_list_tile.dart';
 import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -23,6 +25,7 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
+    final lp = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin page'),
@@ -100,8 +103,8 @@ class _AdminPageState extends State<AdminPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
-                            BackendService.adminBookAdd(
-                                _title, _author, _price, _coverUrl);
+                            BackendService.adminBookAdd(lp.accessToken, _title,
+                                _author, _price, _coverUrl);
                           }
                         },
                         child: const Text("Add Book"),
@@ -162,9 +165,11 @@ class _AdminPageState extends State<AdminPage> {
 
   void _handleDeleteBook(int bookId) {
     // Remove book from the list
+    final lp = Provider.of<LoginProvider>(context, listen: false);
     setState(() {
       books.removeWhere((book) => book.id == bookId);
-      BackendService.adminBookDelete(bookId); // Call backend service
+      BackendService.adminBookDelete(
+          lp.accessToken, bookId); // Call backend service
     });
   }
 }
