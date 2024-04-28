@@ -1,12 +1,13 @@
 import 'package:bookshop_fe/models/jwt_helper.dart';
 import 'package:bookshop_fe/providers/login.dart';
-import 'package:bookshop_fe/services/pkce_auth.dart';
 import 'package:bookshop_fe/services/secure_storage.dart';
 import 'package:bookshop_fe/widgets/custom_app_bar.dart';
 import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:openid_client/openid_client.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:oidc/oidc.dart';
+import 'package:bookshop_fe/utils/app_state.dart' as app_state;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,16 +18,67 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _accessToken = "";
+  OidcPlatformSpecificOptions_Web_NavigationMode webNavigationMode =
+      OidcPlatformSpecificOptions_Web_NavigationMode.newPage;
+
+  OidcPlatformSpecificOptions _getOptions() {
+    return OidcPlatformSpecificOptions(
+      web: OidcPlatformSpecificOptions_Web(
+        navigationMode: webNavigationMode,
+        popupHeight: 800,
+        popupWidth: 730,
+      ),
+    );
+  }
 
   Future<void> _handleLogin() async {
     final lp = Provider.of<LoginProvider>(context, listen: false);
 
-    Credential result = await PKCEAuth.authenticateWeb();
-    var tokenResponse = await result.getTokenResponse();
-    if (tokenResponse.accessToken != null) {
-      _accessToken = tokenResponse.accessToken!;
-      lp.login(_accessToken);
-      SecureStorage.setAccessToken(tokenResponse.accessToken);
+    // Credential result = await PKCEAuth.authenticateWeb();
+    // var tokenResponse = await result.getTokenResponse();
+    // if (tokenResponse.accessToken != null) {
+    //   _accessToken = tokenResponse.accessToken!;
+    //   lp.login(_accessToken);
+    //   SecureStorage.setAccessToken(tokenResponse.accessToken);
+    // }
+
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      final currentRoute = GoRouterState.of(context);
+      final originalUri =
+          currentRoute.uri.queryParameters[OidcConstants_Store.originalUri];
+      final parsedOriginalUri =
+          originalUri == null ? null : Uri.tryParse(originalUri);
+      final result = await app_state.currentManager.loginAuthorizationCodeFlow(
+        originalUri: parsedOriginalUri ?? Uri.parse('/'),
+        //store any arbitrary data, here we store the authorization
+        //start time.
+        extraStateData: DateTime.now().toIso8601String(),
+        options: _getOptions(),
+        //NOTE: you can pass more parameters here.
+      );
+
+      if (result?.token.accessToken != null) {
+        _accessToken = result!.token.accessToken!;
+        lp.login(result.token.accessToken);
+      }
+
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            'loginAuthorizationCodeFlow returned user id: ${result?.uid}',
+          ),
+        ),
+      );
+    } catch (e) {
+      app_state.exampleLogger.severe(e.toString());
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            'loginAuthorizationCodeFlow failed! ${e is OidcException ? e.message : ""}',
+          ),
+        ),
+      );
     }
   }
 
@@ -80,7 +132,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const Divider(),
               TextButton(
-                  onPressed: () => Navigator.of(context).pushNamed('/browse'),
+                  onPressed: () => GoRouter.of(context).go('/browse'),
                   child: const Text("Browse")),
             ],
           ),
