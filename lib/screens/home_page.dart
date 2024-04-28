@@ -5,6 +5,7 @@ import 'package:bookshop_fe/services/secure_storage.dart';
 import 'package:bookshop_fe/widgets/custom_app_bar.dart';
 import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openid_client/openid_client.dart';
 import 'package:provider/provider.dart';
 
@@ -80,7 +81,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const Divider(),
               TextButton(
-                  onPressed: () => Navigator.of(context).pushNamed('/browse'),
+                  onPressed: () => GoRouter.of(context).go('/browse'),
                   child: const Text("Browse")),
             ],
           ),
