@@ -2,6 +2,7 @@
 
 import 'package:async/async.dart';
 import 'package:bdaya_shared_value/bdaya_shared_value.dart';
+import 'package:bookshop_fe/utils/environment.dart';
 import 'package:logging/logging.dart';
 import 'package:oidc/oidc.dart';
 import 'package:oidc_default_store/oidc_default_store.dart';
@@ -22,8 +23,8 @@ final duendeManager = OidcUserManager.lazy(
   ),
   // this is a public client,
   // so we use [OidcClientAuthentication.none] constructor.
-  clientCredentials: const OidcClientAuthentication.none(
-    clientId: 'flutter',
+  clientCredentials: OidcClientAuthentication.none(
+    clientId: Environment.clientID,
   ),
   store: OidcDefaultStore(
       // useSessionStorageForSessionNamespaceOnWeb: true,
@@ -32,7 +33,7 @@ final duendeManager = OidcUserManager.lazy(
   // keyStore: JsonWebKeyStore(),
   settings: OidcUserManagerSettings(
     frontChannelLogoutUri: Uri(path: 'redirect.html'),
-    uiLocales: ['ar'],
+    uiLocales: ['en'],
     refreshBefore: (token) {
       return const Duration(seconds: 1);
     },
