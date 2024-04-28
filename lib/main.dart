@@ -49,8 +49,18 @@ Future<void> main() async {
                     );
                   }
                   if (snapshot.hasError) {
-                    return Center(
-                      child: Text(snapshot.error.toString()),
+                    return Scaffold(
+                      body: Center(
+                        child: Container(
+                            padding: const EdgeInsets.all(16),
+                            child: const Text(
+                              "Error connecting to Keycloak",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ),
                     );
                   }
                   return child!;

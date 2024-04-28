@@ -12,7 +12,7 @@ import 'package:oidc_default_store/oidc_default_store.dart';
 
 //usually you would use a dependency injection library
 //and put these in a service.
-final exampleLogger = Logger('oidc.example');
+final exampleLogger = Logger('Bookshop');
 
 /// Gets the current manager used in the example.
 OidcUserManager currentManager = duendeManager;
@@ -55,7 +55,6 @@ final initMemoizer = AsyncMemoizer<void>();
 
 Future<void> initApp() {
   return initMemoizer.runOnce(() async {
-    // String? _platformName;
     currentManager.userChanges().listen((event) {
       cachedAuthedUser.$ = event;
       exampleLogger.info(
