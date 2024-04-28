@@ -5,7 +5,6 @@ import 'package:bookshop_fe/widgets/jwt_claim_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:bookshop_fe/utils/app_state.dart' as app_state;
 
 class DebugPage extends StatefulWidget {
   const DebugPage({super.key});
@@ -18,7 +17,6 @@ class _DebugPageState extends State<DebugPage> {
   @override
   Widget build(BuildContext context) {
     var lp = Provider.of<LoginProvider>(context);
-    final user = app_state.cachedAuthedUser.of(context);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Debug'),

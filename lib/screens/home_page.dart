@@ -1,13 +1,13 @@
 import 'package:bookshop_fe/models/jwt_helper.dart';
 import 'package:bookshop_fe/providers/login.dart';
 import 'package:bookshop_fe/services/secure_storage.dart';
+import 'package:bookshop_fe/utils/app_state.dart' as app_state;
 import 'package:bookshop_fe/widgets/custom_app_bar.dart';
 import 'package:bookshop_fe/widgets/custom_side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:oidc/oidc.dart';
-import 'package:bookshop_fe/utils/app_state.dart' as app_state;
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,14 +34,6 @@ class _HomePageState extends State<HomePage> {
   Future<void> _handleLogin() async {
     final lp = Provider.of<LoginProvider>(context, listen: false);
 
-    // Credential result = await PKCEAuth.authenticateWeb();
-    // var tokenResponse = await result.getTokenResponse();
-    // if (tokenResponse.accessToken != null) {
-    //   _accessToken = tokenResponse.accessToken!;
-    //   lp.login(_accessToken);
-    //   SecureStorage.setAccessToken(tokenResponse.accessToken);
-    // }
-
     final messenger = ScaffoldMessenger.of(context);
     try {
       final currentRoute = GoRouterState.of(context);
@@ -64,9 +56,9 @@ class _HomePageState extends State<HomePage> {
       }
 
       messenger.showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
-            'loginAuthorizationCodeFlow returned user id: ${result?.uid}',
+            'Authentication successful',
           ),
         ),
       );

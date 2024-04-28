@@ -69,7 +69,6 @@ class ProfilePageState extends State<ProfilePage> {
                               NetworkImage(snapshot.data!.profilePicUrl),
                         );
                       } else if (snapshot.hasError) {
-                        print(snapshot.error);
                         return const CircleAvatar(
                           radius: 60,
                           backgroundImage:
