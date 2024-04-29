@@ -33,6 +33,7 @@ class _AdminPageState extends State<AdminPage> {
   @override
   Widget build(BuildContext context) {
     final lp = Provider.of<LoginProvider>(context, listen: false);
+    final scaffoldMessengerState = ScaffoldMessenger.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin page'),
@@ -111,11 +112,29 @@ class _AdminPageState extends State<AdminPage> {
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
-                            BackendService.adminBookAdd(lp.accessToken, _title,
-                                _author, _price, _coverUrl);
+                            var resp = await BackendService.adminBookAdd(
+                                lp.accessToken,
+                                _title,
+                                _author,
+                                _price,
+                                _coverUrl);
+                            if (resp.statusCode == 201) {
+                              scaffoldMessengerState
+                                  .showSnackBar(const SnackBar(
+                                content: Text('Book added successfully'),
+                                duration: Duration(seconds: 1),
+                              ));
+                            } else if (resp.statusCode == 409) {
+                              scaffoldMessengerState
+                                  .showSnackBar(const SnackBar(
+                                content: Text('Book already exist'),
+                                backgroundColor: Colors.red,
+                                duration: Duration(seconds: 1),
+                              ));
+                            }
                           }
                           // refresh page
                           setState(() {});
@@ -179,10 +198,22 @@ class _AdminPageState extends State<AdminPage> {
   void _handleDeleteBook(int bookId) {
     // Remove book from the list
     final lp = Provider.of<LoginProvider>(context, listen: false);
-    setState(() {
+    final scaffoldMessengerState = ScaffoldMessenger.of(context);
+    setState(() async {
       books.removeWhere((book) => book.id == bookId);
-      BackendService.adminBookDelete(
-          lp.accessToken, bookId); // Call backend service
+      var resp = await BackendService.adminBookDelete(lp.accessToken, bookId);
+      if (resp.statusCode == 200) {
+        scaffoldMessengerState.showSnackBar(const SnackBar(
+          content: Text('Book deleted successfully'),
+          duration: Duration(seconds: 1),
+        ));
+      } else {
+        scaffoldMessengerState.showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Error deleting book'),
+          duration: Duration(seconds: 1),
+        ));
+      }
     });
   }
 }
