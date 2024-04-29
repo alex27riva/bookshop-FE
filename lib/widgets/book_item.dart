@@ -19,6 +19,7 @@ class _BookItemState extends State<BookItem> {
   @override
   Widget build(BuildContext context) {
     final lp = Provider.of<LoginProvider>(context);
+    final scaffoldMessengerState = ScaffoldMessenger.of(context);
     var loggedIn = lp.currentUser.loggedIn;
     return Card(
       elevation: 10,
@@ -70,10 +71,23 @@ class _BookItemState extends State<BookItem> {
                       icon: !isInWishlist
                           ? const Icon(Icons.favorite_border)
                           : const Icon(Icons.favorite_outlined),
-                      onPressed: () {
+                      onPressed: () async {
                         if (!isInWishlist) {
-                          BackendService.addToWishlist(
+                          var resp = await BackendService.addToWishlist(
                               lp.accessToken, widget.book.id);
+                          if (resp.statusCode == 201) {
+                            scaffoldMessengerState.showSnackBar(
+                              const SnackBar(
+                                content: Text('Added to wishlist'),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                          } else if (resp.statusCode == 200) {
+                            scaffoldMessengerState.showSnackBar(const SnackBar(
+                              content: Text('Item already in user wishlist'),
+                              duration: Duration(seconds: 1),
+                            ));
+                          }
                         }
                         setState(() {
                           isInWishlist = true;
