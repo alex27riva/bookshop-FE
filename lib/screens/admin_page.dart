@@ -21,7 +21,14 @@ class _AdminPageState extends State<AdminPage> {
   String _title = "";
   String _author = "";
   double _price = 0.0;
-  String _coverUrl = '';
+  String _coverUrl = "";
+
+  // Sample book data
+  static const String sampleTitle = "OAuth 2.0 Simplified";
+  static const String sampleAuthor = "Aaron Parecki";
+  static const String samplePrice = "32.99";
+  static const String sampleImageUrl =
+      "https://i.postimg.cc/BQHxT1Jd/oauth2-simplified.jpg";
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +59,7 @@ class _AdminPageState extends State<AdminPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       TextFormField(
+                        initialValue: sampleTitle,
                         decoration: const InputDecoration(
                           labelText: "Title",
                         ),
@@ -60,6 +68,7 @@ class _AdminPageState extends State<AdminPage> {
                         onSaved: (value) => _title = value!,
                       ),
                       TextFormField(
+                        initialValue: sampleAuthor,
                         decoration: const InputDecoration(
                           labelText: "Author",
                         ),
@@ -68,6 +77,7 @@ class _AdminPageState extends State<AdminPage> {
                         onSaved: (value) => _author = value!,
                       ),
                       TextFormField(
+                        initialValue: samplePrice,
                         decoration: const InputDecoration(
                           labelText: "Price",
                         ),
@@ -86,6 +96,7 @@ class _AdminPageState extends State<AdminPage> {
                         onSaved: (value) => _price = double.parse(value!),
                       ),
                       TextFormField(
+                        initialValue: sampleImageUrl,
                         decoration: const InputDecoration(
                           labelText: "Cover image url",
                         ),
@@ -106,6 +117,8 @@ class _AdminPageState extends State<AdminPage> {
                             BackendService.adminBookAdd(lp.accessToken, _title,
                                 _author, _price, _coverUrl);
                           }
+                          // refresh page
+                          setState(() {});
                         },
                         child: const Text("Add Book"),
                       ),
