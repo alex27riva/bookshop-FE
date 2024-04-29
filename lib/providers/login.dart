@@ -22,7 +22,7 @@ class LoginProvider with ChangeNotifier {
 
   Future<void> logout() async {
     html.window.location.href =
-        "${Urls.logoutUrl}?client_id=${Environment.clientID}&post_logout_redirect_uri=${Urls.encodedPostLogoutUrl}";
+        "${Urls.logoutUrl}?client_id=${Environment.clientID}&post_logout_redirect_uri=${Uri.encodeComponent(Urls.bookshopUrl)}";
     SecureStorage.logout();
     currentUser = User.empty();
     notifyListeners();

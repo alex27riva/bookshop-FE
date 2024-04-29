@@ -10,6 +10,6 @@ class Urls {
   static String get logoutUrl =>
       '${Environment.keycloakUriScheme}://${Environment.keycloakHost}/realms/${Environment.keycloakRealm}/protocol/openid-connect/logout';
 
-  static String get encodedPostLogoutUrl =>
-      Uri.encodeComponent("http://localhost:8000");
+  // Bookshop app url
+  static String get bookshopUrl => 'http://localhost:8000';
 }

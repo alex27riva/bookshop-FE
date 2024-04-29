@@ -2,24 +2,22 @@
 
 import 'package:async/async.dart';
 import 'package:bdaya_shared_value/bdaya_shared_value.dart';
+import 'package:bookshop_fe/constants/urls.dart';
 import 'package:bookshop_fe/utils/environment.dart';
 import 'package:logging/logging.dart';
 import 'package:oidc/oidc.dart';
 import 'package:oidc_default_store/oidc_default_store.dart';
 
-//This file represents a global state, which is bad
-//in a production app (since you can't test it).
+final logger = Logger('Bookshop');
+const String redirectPage = 'redirect.html';
 
-//usually you would use a dependency injection library
-//and put these in a service.
-final exampleLogger = Logger('Bookshop');
-
-/// Gets the current manager used in the example.
+// Gets the current manager
 OidcUserManager currentManager = duendeManager;
 
 final duendeManager = OidcUserManager.lazy(
   discoveryDocumentUri: OidcUtils.getOpenIdConfigWellKnownUri(
-    Uri.parse('http://localhost:8080/realms/unimi'),
+    Uri.parse(
+        "${Environment.keycloakUriScheme}://${Environment.keycloakHost}/realms/${Environment.keycloakRealm}"),
   ),
   // this is a public client,
   // so we use [OidcClientAuthentication.none] constructor.
@@ -32,22 +30,16 @@ final duendeManager = OidcUserManager.lazy(
 
   // keyStore: JsonWebKeyStore(),
   settings: OidcUserManagerSettings(
-    frontChannelLogoutUri: Uri(path: 'redirect.html'),
+    frontChannelLogoutUri: Uri(path: redirectPage),
     uiLocales: ['en'],
     refreshBefore: (token) {
       return const Duration(seconds: 1);
     },
-
     // scopes supported by the provider and needed by the client.
     scope: ['openid', 'profile', 'email', 'offline_access'],
-    postLogoutRedirectUri: Uri.parse('http://localhost:8000/redirect.html'),
+    postLogoutRedirectUri: Uri.parse("${Urls.bookshopUrl}/$redirectPage"),
 
-    redirectUri:
-        // this url must be an actual html page.
-        // see the file in /web/redirect.html for an example.
-        //
-        // for debugging in flutter, you must run this app with --web-port 8000
-        Uri.parse('http://localhost:8000/redirect.html'),
+    redirectUri: Uri.parse("${Urls.bookshopUrl}/$redirectPage"),
   ),
 );
 
@@ -57,7 +49,7 @@ Future<void> initApp() {
   return initMemoizer.runOnce(() async {
     currentManager.userChanges().listen((event) {
       cachedAuthedUser.$ = event;
-      exampleLogger.info(
+      logger.info(
         'User changed: ${event?.claims.toJson()}, info: ${event?.userInfo}',
       );
     });

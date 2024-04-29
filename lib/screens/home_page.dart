@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } catch (e) {
-      app_state.exampleLogger.severe(e.toString());
+      app_state.logger.severe(e.toString());
       messenger.showSnackBar(
         SnackBar(
           content: Text(
