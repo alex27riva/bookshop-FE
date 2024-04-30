@@ -10,60 +10,55 @@ class JwtClaimViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     JwtHelper jwt = JwtHelper(token);
-    return ExpansionTile(
-      title: const Text('Token information'),
-      children: <Widget>[
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 400),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                ListTile(
-                  title: const Text("Name"),
-                  subtitle: Text(jwt.name),
-                ),
-                ListTile(
-                  title: const Text("Email"),
-                  subtitle: Text(jwt.email),
-                ),
-                ListTile(
-                  title: const Text("Scopes"),
-                  subtitle: Text(jwt.scopes),
-                ),
-                ListTile(
-                  title: const Text("Roles"),
-                  subtitle: Text(jwt.roles.join(" ")),
-                ),
-                ListTile(
-                  title: const Text("Expiration"),
-                  subtitle: Text(
-                    jwt.expirationDate.toString(),
-                    style: TextStyle(
-                        color: jwt.isValid() ? Colors.green : Colors.red),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Clipboard.setData(ClipboardData(text: token));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('JWT token copied to clipboard')),
-                    );
-                  },
-                  child: ListTile(
-                    title: const Text("JWT token"),
-                    subtitle: Text(
-                      token,
-                      style: const TextStyle(fontSize: 12.0),
-                    ),
-                  ),
-                ),
-              ],
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 400),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            ListTile(
+              title: const Text("Full name"),
+              subtitle: Text(jwt.fullName),
             ),
-          ),
+            ListTile(
+              title: const Text("Email"),
+              subtitle: Text(jwt.email),
+            ),
+            ListTile(
+              title: const Text("Scopes"),
+              subtitle: Text(jwt.scopes),
+            ),
+            ListTile(
+              title: const Text("Roles"),
+              subtitle: Text(jwt.roles.join(" ")),
+            ),
+            ListTile(
+              title: const Text("Expiration"),
+              subtitle: Text(
+                jwt.expirationDate.toString(),
+                style:
+                    TextStyle(color: jwt.isValid() ? Colors.green : Colors.red),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: token));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('JWT token copied to clipboard')),
+                );
+              },
+              child: ListTile(
+                title: const Text("JWT token"),
+                subtitle: Text(
+                  token,
+                  style: const TextStyle(fontSize: 12.0),
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
