@@ -2,6 +2,7 @@ import 'dart:html' as html;
 
 import 'package:bookshop_fe/constants/urls.dart';
 import 'package:bookshop_fe/models/user.dart';
+import 'package:bookshop_fe/services/backend_service.dart';
 import 'package:bookshop_fe/services/secure_storage.dart';
 import 'package:bookshop_fe/utils/environment.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,8 @@ class LoginProvider with ChangeNotifier {
 
   void login(token) {
     currentUser = User.fromJwtToken(accessToken: token);
+    // create account if not exist
+    BackendService.createAccount(token);
     notifyListeners();
   }
 

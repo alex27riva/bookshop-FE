@@ -32,7 +32,7 @@ class _DebugPageState extends State<DebugPage> {
                       children: [
                         TextButton(
                           onPressed: () =>
-                              BackendService.checkAccount(lp.accessToken),
+                              BackendService.createAccount(lp.accessToken),
                           child: const Text("Force account registration",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ),

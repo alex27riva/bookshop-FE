@@ -19,7 +19,7 @@ class BackendService {
     }
   }
 
-  static Future<http.Response> checkAccount(String token) async {
+  static Future<http.Response> createAccount(String token) async {
     final response = await http.post(
       Uri.parse(Endpoints.signup),
       headers: {
