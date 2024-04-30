@@ -20,13 +20,15 @@ class LoginProvider with ChangeNotifier {
     currentUser = User.fromJwtToken(accessToken: token);
     // create account if not exist
     BackendService.createAccount(token);
+    // Store token
+    SecureStorage.storeAccessToken(token);
     notifyListeners();
   }
 
   Future<void> logout() async {
     html.window.location.href =
         "${Urls.logoutUrl}?client_id=${Environment.clientID}&post_logout_redirect_uri=${Uri.encodeComponent(Urls.bookshopUrl)}";
-    SecureStorage.logout();
+    SecureStorage.deleteAccessToken();
     currentUser = User.empty();
     notifyListeners();
   }
