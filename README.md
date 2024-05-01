@@ -15,7 +15,7 @@ KEYCLOAK_REALM=unimi
 KEYCLOAK_HOST=localhost:8080
 ```
 
-## Run
+## Run (in debug)
 
 ### Start the backend
 
@@ -29,3 +29,18 @@ I suggest using [Pycharm](https://www.jetbrains.com/pycharm/) for Venv and Packa
 flutter run -d chrome --web-renderer html --web-port=8000
 ```
 
+## Build
+
+- Build the project
+
+```bash
+flutter build web
+```
+
+- Copy `.env` file in `build/web/assets`
+
+- Run with Python or other HTTP server
+
+```bash
+python3 -m http.server -d build/web -b localhost 8000
+```
