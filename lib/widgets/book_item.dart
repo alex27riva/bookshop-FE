@@ -82,16 +82,33 @@ class _BookItemState extends State<BookItem> {
                                 duration: Duration(seconds: 1),
                               ),
                             );
+                            setState(() {
+                              isInWishlist = true;
+                            });
                           } else if (resp.statusCode == 200) {
                             scaffoldMessengerState.showSnackBar(const SnackBar(
                               content: Text('Item already in user wishlist'),
                               duration: Duration(seconds: 1),
                             ));
+                            setState(() {
+                              isInWishlist = true;
+                            });
+                          }
+                        } else {
+                          var resp = await BackendService.removeFromWishlist(
+                              lp.accessToken, widget.book.id);
+                          if (resp.statusCode == 200) {
+                            scaffoldMessengerState.showSnackBar(
+                              const SnackBar(
+                                content: Text('Book removed from wishlist'),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                            setState(() {
+                              isInWishlist = false;
+                            });
                           }
                         }
-                        setState(() {
-                          isInWishlist = true;
-                        });
                       },
                     ),
                   )
