@@ -52,7 +52,7 @@ class _AdminPageState extends State<AdminPage> {
               children: [
                 const Text(
                   "Add a new book",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
                 Form(
                   key: _formKey,
@@ -162,8 +162,9 @@ class _AdminPageState extends State<AdminPage> {
                   const Text(
                     "Remove a book",
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                   ),
+                  const Text("Books in user's wishlist cannot be removed"),
                   FutureBuilder<List<Book>>(
                     future: BackendService.fetchBooks(),
                     builder: (context, snapshot) {
@@ -195,25 +196,24 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  void _handleDeleteBook(int bookId) {
+  void _handleDeleteBook(int bookId) async {
     // Remove book from the list
     final lp = Provider.of<LoginProvider>(context, listen: false);
     final scaffoldMessengerState = ScaffoldMessenger.of(context);
-    setState(() async {
-      books.removeWhere((book) => book.id == bookId);
-      var resp = await BackendService.adminBookDelete(lp.accessToken, bookId);
-      if (resp.statusCode == 200) {
-        scaffoldMessengerState.showSnackBar(const SnackBar(
-          content: Text('Book deleted successfully'),
-          duration: Duration(seconds: 1),
-        ));
-      } else {
-        scaffoldMessengerState.showSnackBar(const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('Error deleting book'),
-          duration: Duration(seconds: 1),
-        ));
-      }
-    });
+    books.removeWhere((book) => book.id == bookId);
+    var resp = await BackendService.adminBookDelete(lp.accessToken, bookId);
+    if (resp.statusCode == 200) {
+      scaffoldMessengerState.showSnackBar(const SnackBar(
+        content: Text('Book deleted successfully'),
+        duration: Duration(seconds: 1),
+      ));
+      setState(() {});
+    } else {
+      scaffoldMessengerState.showSnackBar(const SnackBar(
+        backgroundColor: Colors.red,
+        content: Text('Error deleting book'),
+        duration: Duration(seconds: 1),
+      ));
+    }
   }
 }
